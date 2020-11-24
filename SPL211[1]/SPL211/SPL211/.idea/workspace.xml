@@ -19,9 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="692d0155-374f-44c6-8cd8-22cd7fa5c936" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="692d0155-374f-44c6-8cd8-22cd7fa5c936" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,7 +45,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
-  <component name="RunManager" selected="JUnit.FutureTest">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.application.Main" />
       <module name="SPL211" />
@@ -94,8 +92,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.FutureTest" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.FutureTest" />
         <item itemvalue="JUnit.FutureTest.testResolve" />
       </list>
     </recent_temporary>
