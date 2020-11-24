@@ -1,7 +1,5 @@
 package bgu.spl.mics;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -47,7 +45,7 @@ public class Future<T> {
      * @return true if this object has been resolved, false otherwise
      */
 	public boolean isDone() {
-		throw new NotImplementedException();
+		return false;
 	}
 	
 	/**
