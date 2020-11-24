@@ -1,1 +1,1 @@
-C:\Users\amitz\IdeaProjects\Semester c\spl\Assignment2\StarWars\SPL211[1]\SPL211\SPL211\.idea\workplace.xml
+SPL211[1]/SPL211/SPL211/.idea/workspace.xml
