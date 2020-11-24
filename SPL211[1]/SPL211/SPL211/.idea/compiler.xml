@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="spl211" />
+        <module name="SPL211" />
       </profile>
     </annotationProcessing>
   </component>
