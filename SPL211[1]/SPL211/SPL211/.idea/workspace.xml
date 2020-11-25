@@ -21,9 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cbccade4-06c3-4622-a6d8-010992859a67" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/Future.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/Future.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/FutureTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/FutureTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/MessageBusImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/MessageBusImplTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +61,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MessageBusImplTest.testUnregister">
+  <component name="RunManager" selected="JUnit.MessageBusImplTest">
     <configuration name="FutureTest.testGetWithTimeOut" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SPL211" />
       <extension name="coverage">
@@ -146,8 +143,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.MessageBusImplTest.testUnregister" />
         <item itemvalue="JUnit.MessageBusImplTest" />
+        <item itemvalue="JUnit.MessageBusImplTest.testUnregister" />
         <item itemvalue="JUnit.MessageBusImplTest.testSubscribeBroadcast" />
         <item itemvalue="JUnit.MessageBusImplTest.testSubscribeEvent" />
         <item itemvalue="JUnit.FutureTest.testGetWithTimeOut" />
@@ -197,22 +194,22 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="446" y="47" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1606310496101" />
-    <state width="1237" height="163" key="GridCell.Tab.0.bottom" timestamp="1606330178440">
+    <state width="1237" height="163" key="GridCell.Tab.0.bottom" timestamp="1606331072150">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="163" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1606330178440" />
-    <state width="1237" height="163" key="GridCell.Tab.0.center" timestamp="1606330178439">
+    <state width="1237" height="163" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1606331072150" />
+    <state width="1237" height="163" key="GridCell.Tab.0.center" timestamp="1606331072150">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="163" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1606330178439" />
-    <state width="1237" height="163" key="GridCell.Tab.0.left" timestamp="1606330178439">
+    <state width="1237" height="163" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1606331072150" />
+    <state width="1237" height="163" key="GridCell.Tab.0.left" timestamp="1606331072150">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="163" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1606330178439" />
-    <state width="1237" height="163" key="GridCell.Tab.0.right" timestamp="1606330178440">
+    <state width="1237" height="163" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1606331072150" />
+    <state width="1237" height="163" key="GridCell.Tab.0.right" timestamp="1606331072150">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="163" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1606330178440" />
+    <state width="1237" height="163" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1606331072150" />
     <state width="1237" height="204" key="GridCell.Tab.1.bottom" timestamp="1606325571861">
       <screen x="0" y="0" width="1280" height="680" />
     </state>

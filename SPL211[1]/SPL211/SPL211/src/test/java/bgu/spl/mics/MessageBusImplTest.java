@@ -1,6 +1,7 @@
 package bgu.spl.mics;
 
 import bgu.spl.mics.application.messages.AttackEvent;
+import bgu.spl.mics.application.services.C3POMicroservice;
 import bgu.spl.mics.application.services.HanSoloMicroservice;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,10 +22,35 @@ class MessageBusImplTest {
     @BeforeEach
     void setUp() {
         messageBus = MessageBusImpl.getInstance();
+        microService1 = createAnonymousMicroService("One");
+        microService1 = createAnonymousMicroService("Two");
+        microService1 = createAnonymousMicroService("Three");
     }
 
     @AfterEach
     void tearDown() {
+        unregisterMicroService(microService1);
+        unregisterMicroService(microService2);
+        unregisterMicroService(microService3);
+    }
+
+    private static MicroService createAnonymousMicroService(String name){
+        return new MicroService(name) {
+            @Override
+            protected void initialize() {
+
+            }
+        };
+    }
+
+    private void unregisterMicroService(MicroService microService){
+        // unregister if not already unregistered:
+        try{
+            messageBus.unregister(microService);
+        }
+        catch (Exception exception){
+
+        }
     }
 
     @Test
