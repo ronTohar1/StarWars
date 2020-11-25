@@ -18,7 +18,8 @@ public class Future<T> {
 	 * This should be the the only public constructor in this class.
 	 */
 	public Future() {
-		
+		isDone = false;
+		result = null;
 	}
 	
 	/**
@@ -30,22 +31,27 @@ public class Future<T> {
      * 	       
      */
 	public T get() {
-		
-        return null; 
+		while (!isDone){
+			// waiting for resolve...
+		}
+		return result;
 	}
 	
 	/**
      * Resolves the result of this Future object.
      */
 	public void resolve (T result) {
-		
+		if (isDone)
+			throw new IllegalStateException("Can't resolve because already resolved");
+		this.result = result;
+		isDone = true;
 	}
 	
 	/**
      * @return true if this object has been resolved, false otherwise
      */
 	public boolean isDone() {
-		return true;
+		return isDone;
 	}
 	
 	/**
@@ -60,8 +66,12 @@ public class Future<T> {
      *         elapsed, return null.
      */
 	public T get(long timeout, TimeUnit unit) {
-		
-        return null;
+		long timeoutDurationInMilliSeconds = unit.convert(timeout, TimeUnit.MILLISECONDS);
+		long startTime = System.currentTimeMillis();
+		while (!isDone && System.currentTimeMillis() - startTime < timeoutDurationInMilliSeconds){
+			// waiting for resolve...
+		}
+		return result; // result is null if not done
 	}
 
 }

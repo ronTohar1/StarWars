@@ -1,13 +1,11 @@
 package bgu.spl.mics;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.*;
 
-import org.junit.jupiter.api.Test;
-
+import java.sql.Time;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,35 +23,45 @@ public class FutureTest {
     @Test
     public void testGet()
     {
-        assertFalse(future.isDone());
-        future.resolve("");
-        future.get();
-        assertTrue(future.isDone());
+        assertTimeoutPreemptively(Duration.ofMillis(1000), ()-> {
+            assertFalse(future.isDone());
+            String result = "";
+            future.resolve(result);
+            assertTrue(future.isDone());
+            assertEquals(future.get(), result);
+        });
     }
+
+//    @Timeout(value = 10, unit = TimeUnit.MILLISECONDS)
 
     @Test
     public void testResolve(){
-        String str = "someResult";
-        future.resolve(str);
+        String result = "someResult";
+        future.resolve(result);
         assertTrue(future.isDone());
-        assertTrue(str.equals(future.get()));
+        assertEquals(result, future.get());
     }
 
     @Test
     public void testIsDone(){
-        String str = "someResult";
+        String result = "someResult";
         assertFalse(future.isDone());
-        future.resolve(str);
+        future.resolve(result);
         assertTrue(future.isDone());
     }
 
     @Test
     public void testGetWithTimeOut() throws InterruptedException
     {
-        assertFalse(future.isDone());
-        future.get(100,TimeUnit.MILLISECONDS);
-        assertFalse(future.isDone());
-        future.resolve("foo");
-        assertEquals(future.get(100,TimeUnit.MILLISECONDS),"foo");
+        assertTimeoutPreemptively(Duration.ofMillis(1000), ()-> {
+            assertFalse(future.isDone());
+            long startTimeInMilliSeconds = System.currentTimeMillis();
+            future.get(100, TimeUnit.MILLISECONDS);
+            assertTrue(System.currentTimeMillis() - startTimeInMilliSeconds >= 100);
+            assertFalse(future.isDone());
+            String result = "foo";
+            future.resolve(result);
+            assertEquals(future.get(100,TimeUnit.MILLISECONDS), result);
+        });
     }
 }
