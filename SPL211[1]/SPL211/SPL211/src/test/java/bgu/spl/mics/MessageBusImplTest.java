@@ -18,12 +18,6 @@ class MessageBusImplTest {
     @BeforeEach
     void setUp() {
         messageBus = MessageBusImpl.getInstance();
-        microService1 = new MicroService("micro1") {
-            @Override
-            protected void initialize() {
-
-            }
-        }
     }
 
     @AfterEach
