@@ -17,7 +17,7 @@ class MessageBusImplTest {
     @BeforeEach
     void setUp() {
         messageBus = MessageBusImpl.getInstance();
-        microService1 = new MicroService() {
+        microService1 = new MicroService("micro1") {
             @Override
             protected void initialize() {
 
@@ -40,16 +40,18 @@ class MessageBusImplTest {
         messageBus.subscribeEvent(eventType, microService2);
         messageBus.sendEvent(attackEvent1);
         messageBus.sendEvent(attackEvent2);
-        Message message1 = messageBus.awaitMessage(microService1);
-        Message message2 = messageBus.awaitMessage(microService2);
+       // Message message1 = messageBus.awaitMessage(microService1);
+        //Message message2 = messageBus.awaitMessage(microService2);
     }
 
     @Test
     void testSubscribeBroadcast() {
+
     }
 
     @Test
     void testComplete() {
+
     }
 
     @Test
