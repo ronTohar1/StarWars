@@ -17,10 +17,6 @@ class EwokTest {
         unavailableEwok = new Ewok(2, false);
     }
 
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
     void testAcquire() {
         // test acquire available Ewok:
