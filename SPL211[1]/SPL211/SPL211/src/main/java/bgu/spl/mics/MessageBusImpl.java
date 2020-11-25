@@ -7,7 +7,25 @@ package bgu.spl.mics;
  */
 public class MessageBusImpl implements MessageBus {
 	
-	
+	private static MessageBusImpl instance = null;
+
+	/**
+	 * a private constructor for the singleton design pattern
+	 */
+	private MessageBusImpl(){
+	}
+
+	/**
+	 * A getter for the instance of the MessageBusImpl according to the Singleton design pattern. Creates
+	 * a the instance if doesn't already exist
+	 * @return The instance of the MessageBusImpl singleton
+	 */
+	public static MessageBusImpl getInstance(){
+		if (instance == null) // if haven't created the instance yet, create it
+			instance = new MessageBusImpl();
+		return instance;
+	}
+
 	@Override
 	public <T> void subscribeEvent(Class<? extends Event<T>> type, MicroService m) {
 		

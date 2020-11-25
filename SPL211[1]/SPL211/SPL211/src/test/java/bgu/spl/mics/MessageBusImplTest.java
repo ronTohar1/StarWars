@@ -1,5 +1,7 @@
 package bgu.spl.mics;
 
+import bgu.spl.mics.application.messages.AttackEvent;
+import bgu.spl.mics.application.services.HanSoloMicroservice;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,8 +10,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MessageBusImplTest {
 
+    private MessageBusImpl messageBus;
+    private MicroService microService1;
+    private MicroService microService2;
+
     @BeforeEach
     void setUp() {
+        messageBus = MessageBusImpl.getInstance();
+        microService1 = new MicroService() {
+            @Override
+            protected void initialize() {
+
+            }
+        }
     }
 
     @AfterEach
@@ -17,34 +30,45 @@ class MessageBusImplTest {
     }
 
     @Test
-    void subscribeEvent() {
+    void testSubscribeEvent() {
+        messageBus.register(microService1);
+        messageBus.register(microService2);
+        Class<AttackEvent> eventType = AttackEvent.class;
+        AttackEvent attackEvent1 = new AttackEvent();
+        AttackEvent attackEvent2 = new AttackEvent();
+        messageBus.subscribeEvent(eventType, microService1);
+        messageBus.subscribeEvent(eventType, microService2);
+        messageBus.sendEvent(attackEvent1);
+        messageBus.sendEvent(attackEvent2);
+        Message message1 = messageBus.awaitMessage(microService1);
+        Message message2 = messageBus.awaitMessage(microService2);
     }
 
     @Test
-    void subscribeBroadcast() {
+    void testSubscribeBroadcast() {
     }
 
     @Test
-    void complete() {
+    void testComplete() {
     }
 
     @Test
-    void sendBroadcast() {
+    void testSendBroadcast() {
     }
 
     @Test
-    void sendEvent() {
+    void testSendEvent() {
     }
 
     @Test
-    void register() {
+    void testRegister() {
     }
 
     @Test
-    void unregister() {
+    void testUnregister() {
     }
 
     @Test
-    void awaitMessage() {
+    void testAwaitMessage() {
     }
 }
