@@ -13,6 +13,7 @@ class MessageBusImplTest {
     private MessageBusImpl messageBus;
     private MicroService microService1;
     private MicroService microService2;
+    private MicroService microService3;
 
     @BeforeEach
     void setUp() {
@@ -33,9 +34,9 @@ class MessageBusImplTest {
     void testSubscribeEvent() {
         messageBus.register(microService1);
         messageBus.register(microService2);
-        Class<AttackEvent> eventType = AttackEvent.class;
         AttackEvent attackEvent1 = new AttackEvent();
         AttackEvent attackEvent2 = new AttackEvent();
+        Class<AttackEvent> eventType = AttackEvent.class;
         messageBus.subscribeEvent(eventType, microService1);
         messageBus.subscribeEvent(eventType, microService2);
         messageBus.sendEvent(attackEvent1);
@@ -46,14 +47,36 @@ class MessageBusImplTest {
 
     @Test
     void testSubscribeBroadcast() {
+        messageBus.register(microService1);
+        messageBus.register(microService2);
+        messageBus.register(microService3);
+        Broadcast broadcast = new Broadcast() {};
+        Class<? extends Broadcast> eventType = broadcast.getClass();
+        messageBus.subscribeBroadcast(eventType, microService1);
+        messageBus.subscribeBroadcast(eventType, microService2);
+        messageBus.sendBroadcast(broadcast);
+        Message message1 = messageBus.awaitMessage(microService1);
+        Message message2 = messageBus.awaitMessage(microService2);
+        Message message3 = messageBus.awaitMessage(microService3);
     }
 
     @Test
     void testComplete() {
+        messageBus.register(microService1);
+        Class<AttackEvent> eventType = AttackEvent.class;
+        messageBus.subscribeEvent(eventType, microService1);
+        AttackEvent attackEvent = new AttackEvent();
+        Future<Boolean> future = messageBus.sendEvent(attackEvent);
+        messageBus.awaitMessage(microService1);
+        Boolean eventResult = true;
+        messageBus.complete(attackEvent, eventResult);
+        assertTrue(future.isDone());
+        assertEquals(future.get(), eventResult);
     }
 
     @Test
     void testSendBroadcast() {
+
     }
 
     @Test
