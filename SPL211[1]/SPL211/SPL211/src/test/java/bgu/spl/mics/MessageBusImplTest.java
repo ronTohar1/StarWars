@@ -47,9 +47,6 @@ class MessageBusImplTest {
 
     @Test
     void testSubscribeBroadcast() {
-<<<<<<< HEAD
-
-=======
         messageBus.register(microService1);
         messageBus.register(microService2);
         messageBus.register(microService3);
@@ -61,14 +58,11 @@ class MessageBusImplTest {
         Message message1 = messageBus.awaitMessage(microService1);
         Message message2 = messageBus.awaitMessage(microService2);
         Message message3 = messageBus.awaitMessage(microService3);
->>>>>>> 083251e96d2d86404dc042abd7543ee92be69f24
+
     }
 
     @Test
     void testComplete() {
-<<<<<<< HEAD
-
-=======
         messageBus.register(microService1);
         Class<AttackEvent> eventType = AttackEvent.class;
         messageBus.subscribeEvent(eventType, microService1);
@@ -79,7 +73,7 @@ class MessageBusImplTest {
         messageBus.complete(attackEvent, eventResult);
         assertTrue(future.isDone());
         assertEquals(future.get(), eventResult);
->>>>>>> 083251e96d2d86404dc042abd7543ee92be69f24
+
     }
 
     @Test
