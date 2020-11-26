@@ -23,8 +23,8 @@ class MessageBusImplTest {
     void setUp() {
         messageBus = MessageBusImpl.getInstance();
         microService1 = createAnonymousMicroService("One");
-        microService1 = createAnonymousMicroService("Two");
-        microService1 = createAnonymousMicroService("Three");
+        microService2 = createAnonymousMicroService("Two");
+        microService3 = createAnonymousMicroService("Three");
     }
 
     @AfterEach
@@ -171,30 +171,6 @@ class MessageBusImplTest {
         assertTimeoutPreemptively(Duration.ofMillis(1000), ()-> {
             messageBus.awaitMessage(microService1);
         });
-    }
-
-    @Test
-    void testUnregister() {
-        try{
-            messageBus.unregister(microService1);
-            fail();
-        }
-        catch (Exception exception){
-        }
-        messageBus.register(microService1);
-        messageBus.unregister(microService1);
-        try{
-            AttackEvent attackEvent = new AttackEvent();
-            Class<AttackEvent> eventType = AttackEvent.class;
-            messageBus.subscribeEvent(eventType, microService1);
-            messageBus.sendEvent(attackEvent);
-            assertTimeoutPreemptively(Duration.ofMillis(1000), ()-> {
-                messageBus.awaitMessage(microService1);
-            });
-            fail();
-        }
-        catch (AssertionError assertionError){
-        }
     }
 
     @Test
