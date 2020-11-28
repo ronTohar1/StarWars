@@ -1,5 +1,6 @@
 package bgu.spl.mics;
 
+import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -60,8 +61,8 @@ public class Future<T> {
      *         elapsed, return null.
      */
 	public T get(long timeout, TimeUnit unit) {
-		
-        return null;
+		long milliTime=unit.convert(timeout, TimeUnit.MILLISECONDS);
+
 	}
 
 }
