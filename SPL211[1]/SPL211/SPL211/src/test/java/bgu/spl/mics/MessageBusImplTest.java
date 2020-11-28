@@ -15,26 +15,30 @@ import static org.junit.jupiter.api.Assertions.*;
 class MessageBusImplTest {
 
     private MessageBusImpl messageBus;
+    // more fields to help test the MessageBusImpl:
     private MicroService microService1;
     private MicroService microService2;
-    private MicroService microService3;
+    private final AttackEvent attackEvent = new AttackEvent();
+    private final Class<AttackEvent> eventType = AttackEvent.class;
+    private final Broadcast broadcast = new Broadcast() {};
+    private final Class<? extends Broadcast> broadcastType = broadcast.getClass();
 
     @BeforeEach
     void setUp() {
         messageBus = MessageBusImpl.getInstance();
         microService1 = createAnonymousMicroService("One");
         microService2 = createAnonymousMicroService("Two");
-        microService3 = createAnonymousMicroService("Three");
     }
 
     @AfterEach
     void tearDown() {
         unregisterMicroService(microService1);
         unregisterMicroService(microService2);
-        unregisterMicroService(microService3);
     }
 
     private static MicroService createAnonymousMicroService(String name){
+        // no method needs to be implemented because no method of the microservice will be called during the tests. It
+        // will be used only by passing it as a parameter
         return new MicroService(name) {
             @Override
             protected void initialize() {
@@ -44,71 +48,33 @@ class MessageBusImplTest {
     }
 
     private void unregisterMicroService(MicroService microService){
-        // unregister if not already unregistered:
+        // unregister if registered (assuming that the unregister method will work iff the microService is registered,
+        // and otherwise will throw an exception)
         try{
             messageBus.unregister(microService);
         }
         catch (Exception exception){
-
+            // doing nothing
         }
     }
 
     @Test
     void testSubscribeEvent() throws InterruptedException {
-        messageBus.register(microService1);
-        messageBus.register(microService2);
-        AttackEvent attackEvent1 = new AttackEvent();
-        AttackEvent attackEvent2 = new AttackEvent();
-        Class<AttackEvent> eventType = AttackEvent.class;
-        messageBus.subscribeEvent(eventType, microService1);
-        messageBus.subscribeEvent(eventType, microService2);
-        messageBus.sendEvent(attackEvent1);
-        messageBus.sendEvent(attackEvent2);
-        assertTimeoutPreemptively(Duration.ofMillis(1000), ()-> {
-            Message message1 = messageBus.awaitMessage(microService1);
-            Message message2 = messageBus.awaitMessage(microService2);
-            assertEquals(message1.getClass(), eventType);
-            assertEquals(message2.getClass(), eventType);
-        });
+        Message message = registerSubscribeToEventSendEventAndAwaitMessageReturnsMessage();
+        // checking that received the message from the type it subscribed to:
+        assertEquals(message.getClass(), eventType);
     }
 
     @Test
     void testSubscribeBroadcast() throws InterruptedException {
-        messageBus.register(microService1);
-        messageBus.register(microService2);
-        messageBus.register(microService3);
-        Broadcast broadcast = new Broadcast() {};
-        Class<? extends Broadcast> eventType = broadcast.getClass();
-        messageBus.subscribeBroadcast(eventType, microService1);
-        messageBus.subscribeBroadcast(eventType, microService2);
-        messageBus.sendBroadcast(broadcast);
-        assertTimeoutPreemptively(Duration.ofMillis(1000), ()-> {
-            Message message1 = messageBus.awaitMessage(microService1);
-            Message message2 = messageBus.awaitMessage(microService2);
-            assertEquals(message1.getClass(), eventType);
-            assertEquals(message2.getClass(), eventType);
-        });
-        try{
-            assertTimeoutPreemptively(Duration.ofMillis(1000), ()-> {
-                messageBus.awaitMessage(microService3);
-            });
-            fail();
-        }
-        catch (AssertionError e){
-
-        }
+        Message[] messages = registerSubscribeToBroadCastSendBroadcastAndAwaitMessage();
+        assertEquals(messages[0].getClass(), broadcastType);
+        assertEquals(messages[1].getClass(), broadcastType);
     }
 
     @Test
     void testComplete() throws InterruptedException {
-        messageBus.register(microService1);
-        Class<AttackEvent> eventType = AttackEvent.class;
-        messageBus.subscribeEvent(eventType, microService1);
-        AttackEvent attackEvent = new AttackEvent();
-        Future<Boolean> future = messageBus.sendEvent(attackEvent);
-        assertTimeoutPreemptively(Duration.ofMillis(1000), ()-> {
-            messageBus.awaitMessage(microService1);
-        });
+        Future<?> future = registerSubscribeToEventSendEventAndAwaitMessageReturnsFuture();
         Boolean eventResult = true;
         messageBus.complete(attackEvent, eventResult);
         assertTrue(future.isDone());
@@ -116,82 +82,53 @@ class MessageBusImplTest {
     }
 
     @Test
-    void testSendBroadcast() {
-        messageBus.register(microService1); // registers to the Broadcast
-        messageBus.register(microService2); // registers to the Broadcast
-        messageBus.register(microService3); // doesn't register to the Broadcast
-        Broadcast broadcast = new Broadcast() {};
-        Class<? extends Broadcast> eventType = broadcast.getClass();
-        messageBus.subscribeBroadcast(eventType, microService1);
-        messageBus.subscribeBroadcast(eventType, microService2);
-        messageBus.sendBroadcast(broadcast);
-        assertTimeoutPreemptively(Duration.ofMillis(1000), ()-> {
-            Message message1 = messageBus.awaitMessage(microService1);
-            Message message2 = messageBus.awaitMessage(microService2);
-            assertTrue(broadcast.equals(message1));
-            assertTrue(broadcast.equals(message2));
-        });
-        try{
-            assertTimeoutPreemptively(Duration.ofMillis(1000), ()-> {
-                messageBus.awaitMessage(microService3);
-            });
-            fail();
-        }
-        catch (AssertionError e){
-
-        }
+    void testSendBroadcast() throws InterruptedException {
+        Message[] messages = registerSubscribeToBroadCastSendBroadcastAndAwaitMessage();
+        assertTrue(broadcast.equals(messages[0]));
+        assertTrue(broadcast.equals(messages[1]));
     }
 
     @Test
-    void testSendEvent() {
+    void testSendEventAndAwaitMessage() throws InterruptedException {
+        // This test checks the sendEvent and awaitMessage methods, because they can't each be tested separately
+        Message message = registerSubscribeToEventSendEventAndAwaitMessageReturnsMessage();
+        assertTrue(attackEvent.equals(message));
+    }
+
+    @Test
+//    void testRegister() throws InterruptedException{
+//        messageBus.register(microService1);
+//        AttackEvent attackEvent = new AttackEvent();
+//        Class<AttackEvent> eventType = AttackEvent.class;
+//        messageBus.subscribeEvent(eventType, microService1);
+//        messageBus.sendEvent(attackEvent);
+//        messageBus.awaitMessage(microService1);
+//    }
+
+    private Message registerSubscribeToEventSendEventAndAwaitMessageReturnsMessage() throws InterruptedException {
+        messageBus.register(microService1);
+        messageBus.subscribeEvent(eventType, microService1);
+        messageBus.sendEvent(attackEvent);
+        return messageBus.awaitMessage(microService1);
+    }
+
+    private Future<Boolean> registerSubscribeToEventSendEventAndAwaitMessageReturnsFuture()
+            throws InterruptedException {
+        messageBus.register(microService1);
+        messageBus.subscribeEvent(eventType, microService1);
+        Future<Boolean> futureObject = messageBus.sendEvent(attackEvent);
+        messageBus.awaitMessage(microService1);
+        return futureObject;
+    }
+
+    private Message[] registerSubscribeToBroadCastSendBroadcastAndAwaitMessage() throws InterruptedException {
         messageBus.register(microService1);
         messageBus.register(microService2);
-        AttackEvent attackEvent1 = new AttackEvent();
-        AttackEvent attackEvent2 = new AttackEvent();
-        Class<AttackEvent> eventType = AttackEvent.class;
-        messageBus.subscribeEvent(eventType, microService1);
-        messageBus.subscribeEvent(eventType, microService2);
-        messageBus.sendEvent(attackEvent1);
-        messageBus.sendEvent(attackEvent2);
-        assertTimeoutPreemptively(Duration.ofMillis(1000), ()-> {
-            Message message1 = messageBus.awaitMessage(microService1);
-            Message message2 = messageBus.awaitMessage(microService2);
-            assertTrue(attackEvent1.equals(message1));
-            assertTrue(attackEvent2.equals(message2));
-        });
-    }
-
-    @Test
-    void testRegister() {
-        messageBus.register(microService1);
-        AttackEvent attackEvent = new AttackEvent();
-        Class<AttackEvent> eventType = AttackEvent.class;
-        messageBus.subscribeEvent(eventType, microService1);
-        messageBus.sendEvent(attackEvent);
-        assertTimeoutPreemptively(Duration.ofMillis(1000), ()-> {
-            messageBus.awaitMessage(microService1);
-        });
-    }
-
-    @Test
-    void testAwaitMessage() {
-        messageBus.register(microService1);
-        try{
-            assertTimeoutPreemptively(Duration.ofMillis(1000), ()-> {
-                messageBus.awaitMessage(microService1);
-            });
-            fail();
-        }
-        catch (AssertionError e){
-
-        }
-        AttackEvent attackEvent = new AttackEvent();
-        Class<AttackEvent> eventType = AttackEvent.class;
-        messageBus.subscribeEvent(eventType, microService1);
-        messageBus.sendEvent(attackEvent);
-        assertTimeoutPreemptively(Duration.ofMillis(1000), ()-> {
-            Message message = messageBus.awaitMessage(microService1);
-            assertTrue(attackEvent.equals(message));
-        });
+        messageBus.subscribeBroadcast(broadcastType, microService1);
+        messageBus.subscribeBroadcast(broadcastType, microService2);
+        messageBus.sendBroadcast(broadcast);
+        Message message1 = messageBus.awaitMessage(microService1);
+        Message message2 = messageBus.awaitMessage(microService2);
+        return new Message[] {message1, message2};
     }
 }
