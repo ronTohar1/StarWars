@@ -119,7 +119,7 @@ class MessageBusImplTest {
 
     /**
      * a private method that registers microService1, subscribes it to AttackEvent events, sends the attackEvent,
-     * awaits for the message as microservice1 and reruns future object received when sent the attack event
+     * awaits for the message as microservice1 and returns future object received when sent the attack event
      * @return the Future<Boolean> object received after sending the attack event
      */
     private Future<Boolean> registerSubscribeToEventSendEventAndAwaitMessageReturnsFuture()
