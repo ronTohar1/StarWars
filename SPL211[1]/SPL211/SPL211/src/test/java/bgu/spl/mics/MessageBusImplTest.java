@@ -16,6 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MessageBusImplTest {
 
+    // the register method of MessageBusImpl won't be tested alone, because there is no way to test it according
+    // to the assignments instructions. But it will be used in the other tests
+
     private MessageBusImpl messageBus;
     // more fields to help test the MessageBusImpl:
     private MicroService microService1;
@@ -63,29 +66,32 @@ class MessageBusImplTest {
     @Test
     void testSubscribeEvent() throws InterruptedException {
         Message message = registerSubscribeToEventSendEventAndAwaitMessageReturnsMessage();
-        // checking that received the message from the type it subscribed to:
+        // checking that received the message from the type the microservice subscribed to:
         assertEquals(message.getClass(), eventType);
     }
 
     @Test
     void testSubscribeBroadcast() throws InterruptedException {
         Message[] messages = registerSubscribeToBroadCastSendBroadcastAndAwaitMessage();
+        // checking that the received messages are from the type the microservices subscribed to:
         assertEquals(messages[0].getClass(), broadcastType);
         assertEquals(messages[1].getClass(), broadcastType);
     }
 
     @Test
     void testComplete() throws InterruptedException {
-        Future<?> future = registerSubscribeToEventSendEventAndAwaitMessageReturnsFuture();
+        Future<Boolean> future = registerSubscribeToEventSendEventAndAwaitMessageReturnsFuture();
         Boolean eventResult = true;
         messageBus.complete(attackEvent, eventResult);
+        // checking that the future object is resolved, and resolved with the right result:
         assertTrue(future.isDone());
-        assertEquals(future.get(), eventResult);
+        assertEquals(eventResult, future.get());
     }
 
     @Test
     void testSendBroadcast() throws InterruptedException {
         Message[] messages = registerSubscribeToBroadCastSendBroadcastAndAwaitMessage();
+        // checking that the received messages are equal to the broadcast that has been sent:
         assertTrue(broadcast.equals(messages[0]));
         assertTrue(broadcast.equals(messages[1]));
     }
@@ -95,19 +101,15 @@ class MessageBusImplTest {
     void testSendEventAndAwaitMessage() throws InterruptedException {
         // This test checks the sendEvent and awaitMessage methods, because they can't each be tested separately
         Message message = registerSubscribeToEventSendEventAndAwaitMessageReturnsMessage();
+        // checking that the received message is equal to the event that has been sent:
         assertTrue(attackEvent.equals(message));
     }
 
-    @Test
-//    void testRegister() throws InterruptedException{
-//        messageBus.register(microService1);
-//        AttackEvent attackEvent = new AttackEvent();
-//        Class<AttackEvent> eventType = AttackEvent.class;
-//        messageBus.subscribeEvent(eventType, microService1);
-//        messageBus.sendEvent(attackEvent);
-//        messageBus.awaitMessage(microService1);
-//    }
-
+    /**
+     * a private method that registers microService1, subscribes it to AttackEvent events, sends the attackEvent,
+     * awaits for the message as microservice1 and reruns the message
+     * @return the message received after awaiting for a message for microservice1
+     */
     private Message registerSubscribeToEventSendEventAndAwaitMessageReturnsMessage() throws InterruptedException {
         messageBus.register(microService1);
         messageBus.subscribeEvent(eventType, microService1);
@@ -115,6 +117,11 @@ class MessageBusImplTest {
         return messageBus.awaitMessage(microService1);
     }
 
+    /**
+     * a private method that registers microService1, subscribes it to AttackEvent events, sends the attackEvent,
+     * awaits for the message as microservice1 and reruns future object received when sent the attack event
+     * @return the Future<Boolean> object received after sending the attack event
+     */
     private Future<Boolean> registerSubscribeToEventSendEventAndAwaitMessageReturnsFuture()
             throws InterruptedException {
         messageBus.register(microService1);
@@ -124,6 +131,14 @@ class MessageBusImplTest {
         return futureObject;
     }
 
+    /**
+     * a private method that registers microService1 and microservice2, subscribes them to the broadcasts of the field
+     * broadcast's type, sends the broadcast,awaits for the message as microservice1 and microservice2 and reruns the
+     * messages in an array  (which its length is 2)
+     * @return A Message array that its length is 2, which contains the messages received after awaiting for a message
+     * for microservice1 and microservice2. The first element in the array is the message of microservice1 and the
+     * second is the message of microservice2
+     */
     private Message[] registerSubscribeToBroadCastSendBroadcastAndAwaitMessage() throws InterruptedException {
         messageBus.register(microService1);
         messageBus.register(microService2);
