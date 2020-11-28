@@ -75,20 +75,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.EwokTest">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.application.Main" />
-      <module name="spl211" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="bgu.spl.mics.application.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.MessageBusImplTest">
     <configuration name="EwokTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SPL211" />
       <extension name="coverage">
@@ -119,11 +106,60 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MessageBusImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SPL211" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bgu.spl.mics.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="bgu.spl.mics" />
+      <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.MessageBusImplTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MessageBusImplTest.testSubscribeBroadcast" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SPL211" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bgu.spl.mics.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="bgu.spl.mics" />
+      <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.MessageBusImplTest" />
+      <option name="METHOD_NAME" value="testSubscribeBroadcast" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MessageBusImplTest.testUnregister" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SPL211" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bgu.spl.mics.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="bgu.spl.mics" />
+      <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.MessageBusImplTest" />
+      <option name="METHOD_NAME" value="testUnregister" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MessageBusImplTest" />
         <item itemvalue="JUnit.EwokTest" />
         <item itemvalue="JUnit.FutureTest" />
-        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.MessageBusImplTest.testUnregister" />
+        <item itemvalue="JUnit.MessageBusImplTest.testSubscribeBroadcast" />
       </list>
     </recent_temporary>
   </component>
@@ -171,22 +207,38 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="446" y="47" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1606310496101" />
-    <state width="1237" height="163" key="GridCell.Tab.0.bottom" timestamp="1606299726640">
+    <state width="1237" height="163" key="GridCell.Tab.0.bottom" timestamp="1606573771924">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="163" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1606299726640" />
-    <state width="1237" height="163" key="GridCell.Tab.0.center" timestamp="1606299726640">
+    <state width="1237" height="163" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1606573771924" />
+    <state width="1237" height="163" key="GridCell.Tab.0.center" timestamp="1606573771924">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="163" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1606299726640" />
-    <state width="1237" height="163" key="GridCell.Tab.0.left" timestamp="1606299726639">
+    <state width="1237" height="163" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1606573771924" />
+    <state width="1237" height="163" key="GridCell.Tab.0.left" timestamp="1606573771923">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="163" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1606299726639" />
-    <state width="1237" height="163" key="GridCell.Tab.0.right" timestamp="1606299726640">
+    <state width="1237" height="163" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1606573771923" />
+    <state width="1237" height="163" key="GridCell.Tab.0.right" timestamp="1606573771924">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="163" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1606299726640" />
+    <state width="1237" height="163" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1606573771924" />
+    <state width="1237" height="204" key="GridCell.Tab.1.bottom" timestamp="1606325571861">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="204" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1606325571861" />
+    <state width="1237" height="204" key="GridCell.Tab.1.center" timestamp="1606325571861">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="204" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1606325571861" />
+    <state width="1237" height="204" key="GridCell.Tab.1.left" timestamp="1606325571861">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="204" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1606325571861" />
+    <state width="1237" height="204" key="GridCell.Tab.1.right" timestamp="1606325571861">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="204" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1606325571861" />
     <state x="121" y="0" key="SettingsEditor" timestamp="1606298222938">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
