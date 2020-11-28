@@ -91,15 +91,11 @@ class MessageBusImplTest {
     }
 
     @Test
-<<<<<<< HEAD
-    void testSendEvent() {
-        
-=======
+
     void testSendEventAndAwaitMessage() throws InterruptedException {
         // This test checks the sendEvent and awaitMessage methods, because they can't each be tested separately
         Message message = registerSubscribeToEventSendEventAndAwaitMessageReturnsMessage();
         assertTrue(attackEvent.equals(message));
->>>>>>> e3268581204da356ac08a0054f70dc7a272a549b
     }
 
     @Test
