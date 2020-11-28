@@ -67,17 +67,13 @@ public class Future<T> {
      *         elapsed, return null.
      */
 	public T get(long timeout, TimeUnit unit) {
-<<<<<<< HEAD
-		long milliTime=unit.convert(timeout, TimeUnit.MILLISECONDS);
 
-=======
 		long timeoutDurationInMilliSeconds = unit.convert(timeout, TimeUnit.MILLISECONDS);
 		long startTime = System.currentTimeMillis();
 		while (!isDone && System.currentTimeMillis() - startTime < timeoutDurationInMilliSeconds){
 			// waiting for resolve...
 		}
 		return result; // result is null if not done
->>>>>>> e3268581204da356ac08a0054f70dc7a272a549b
 	}
 
 }
