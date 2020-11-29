@@ -33,7 +33,7 @@ public class FutureTest {
         String result = "";
         future.resolve(result);
         assertTrue(future.isDone());
-        assertEquals(future.get(), result);
+        assertTrue(result.equals(future.get()));
     }
 
 
@@ -48,7 +48,7 @@ public class FutureTest {
         String result = "someResult";
         future.resolve(result);
         assertTrue(future.isDone());
-        assertEquals(result, future.get());
+        assertTrue(result.equals(future.get()));
     }
 
     /**
@@ -85,6 +85,6 @@ public class FutureTest {
         assertFalse(future.isDone());
         String result = "foo";
         future.resolve(result);
-        assertEquals(future.get(100, TimeUnit.MILLISECONDS), result);
+        assertTrue(result.equals(future.get(100, TimeUnit.MILLISECONDS)));
     }
 }

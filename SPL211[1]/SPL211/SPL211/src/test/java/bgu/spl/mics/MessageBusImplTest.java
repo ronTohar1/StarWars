@@ -37,6 +37,7 @@ class MessageBusImplTest {
 
     @AfterEach
     void tearDown() {
+        // this tear down is required because the instance of MessageBusImpl doesn't change (because it's a singleton)
         unregisterMicroService(microService1);
         unregisterMicroService(microService2);
     }
@@ -81,6 +82,8 @@ class MessageBusImplTest {
     @Test
     void testComplete() throws InterruptedException {
         Future<Boolean> future = registerSubscribeToEventSendEventAndAwaitMessageReturnsFuture();
+        // awaiting message because if not, the complete method of MessageBusImpl will be called on a mission before it
+        // is fetched. That situation can't normally happen, and the MessageBusImpl might throw an exception
         Boolean eventResult = true;
         messageBus.complete(attackEvent, eventResult);
         // checking that the future object is resolved, and resolved with the right result:

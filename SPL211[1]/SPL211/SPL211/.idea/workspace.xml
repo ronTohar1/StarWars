@@ -19,10 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f07c535-2b6a-49db-b872-238b23cf2edd" name="Default Changelist" comment="">
+    <list default="true" id="cbccade4-06c3-4622-a6d8-010992859a67" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/FutureTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/FutureTest.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,7 +73,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.MessageBusImplTest">
+  <component name="RunManager" selected="JUnit.EwokTest">
     <configuration name="EwokTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SPL211" />
       <extension name="coverage">
@@ -100,6 +100,22 @@
       <option name="PACKAGE_NAME" value="bgu.spl.mics" />
       <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.FutureTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FutureTest.testGet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SPL211" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bgu.spl.mics.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="bgu.spl.mics" />
+      <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.FutureTest" />
+      <option name="METHOD_NAME" value="testGet" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -135,29 +151,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MessageBusImplTest.testUnregister" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SPL211" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="bgu.spl.mics.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="bgu.spl.mics" />
-      <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.MessageBusImplTest" />
-      <option name="METHOD_NAME" value="testUnregister" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.MessageBusImplTest" />
-        <item itemvalue="JUnit.MessageBusImplTest.testSubscribeBroadcast" />
         <item itemvalue="JUnit.EwokTest" />
         <item itemvalue="JUnit.FutureTest" />
-        <item itemvalue="JUnit.MessageBusImplTest.testUnregister" />
+        <item itemvalue="JUnit.FutureTest.testGet" />
+        <item itemvalue="JUnit.MessageBusImplTest" />
+        <item itemvalue="JUnit.MessageBusImplTest.testSubscribeBroadcast" />
       </list>
     </recent_temporary>
   </component>
@@ -205,22 +205,22 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="446" y="47" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1606310496101" />
-    <state width="1237" height="163" key="GridCell.Tab.0.bottom" timestamp="1606579030282">
+    <state width="1237" height="163" key="GridCell.Tab.0.bottom" timestamp="1606664270538">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="163" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1606579030282" />
-    <state width="1237" height="163" key="GridCell.Tab.0.center" timestamp="1606579030282">
+    <state width="1237" height="163" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1606664270538" />
+    <state width="1237" height="163" key="GridCell.Tab.0.center" timestamp="1606664270538">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="163" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1606579030282" />
-    <state width="1237" height="163" key="GridCell.Tab.0.left" timestamp="1606579030282">
+    <state width="1237" height="163" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1606664270538" />
+    <state width="1237" height="163" key="GridCell.Tab.0.left" timestamp="1606664270538">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="163" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1606579030282" />
-    <state width="1237" height="163" key="GridCell.Tab.0.right" timestamp="1606579030282">
+    <state width="1237" height="163" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1606664270538" />
+    <state width="1237" height="163" key="GridCell.Tab.0.right" timestamp="1606664270538">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="163" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1606579030282" />
+    <state width="1237" height="163" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1606664270538" />
     <state width="1237" height="204" key="GridCell.Tab.1.bottom" timestamp="1606325571861">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
