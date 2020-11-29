@@ -37,6 +37,7 @@ class MessageBusImplTest {
 
     @AfterEach
     void tearDown() {
+        // this tear down is required because the instance of MessageBusImpl doesn't change (because it's a singleton)
         unregisterMicroService(microService1);
         unregisterMicroService(microService2);
     }
