@@ -20,8 +20,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cbccade4-06c3-4622-a6d8-010992859a67" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/messages/DeactivationEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MicroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MicroService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/messages/AttackEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/messages/AttackEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/C3POMicroservice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/C3POMicroservice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/HanSoloMicroservice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/HanSoloMicroservice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/R2D2Microservice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/R2D2Microservice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/bgu/spl/mics/MessageBusImplTest$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/bgu/spl/mics/MessageBusImplTest$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/bgu/spl/mics/MessageBusImplTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/bgu/spl/mics/MessageBusImplTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/bgu/spl/mics/application/passiveObjects/EwokTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/bgu/spl/mics/application/passiveObjects/EwokTest.class" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,6 +42,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -72,7 +84,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.EwokTest">
+  <component name="RunManager" selected="JUnit.MessageBusImplTest">
     <configuration name="EwokTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SPL211" />
       <extension name="coverage">
@@ -152,10 +164,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MessageBusImplTest" />
         <item itemvalue="JUnit.EwokTest" />
         <item itemvalue="JUnit.FutureTest" />
         <item itemvalue="JUnit.FutureTest.testGet" />
-        <item itemvalue="JUnit.MessageBusImplTest" />
         <item itemvalue="JUnit.MessageBusImplTest.testSubscribeBroadcast" />
       </list>
     </recent_temporary>
@@ -165,7 +177,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="8f07c535-2b6a-49db-b872-238b23cf2edd" name="Default Changelist" comment="" />
+      <changelist id="cbccade4-06c3-4622-a6d8-010992859a67" name="Default Changelist" comment="" />
       <created>1606237108564</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />

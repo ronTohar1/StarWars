@@ -1,6 +1,11 @@
 package bgu.spl.mics.application.services;
 
+import bgu.spl.mics.Callback;
 import bgu.spl.mics.MicroService;
+import bgu.spl.mics.application.messages.DeactivationEvent;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * R2D2Microservices is in charge of the handling {@link DeactivationEvent}.
@@ -18,6 +23,9 @@ public class R2D2Microservice extends MicroService {
 
     @Override
     protected void initialize() {
-
+        Callback<DeactivationEvent> c=(a)->{
+            System.out.println("R2D2 callback");
+        };
+        subscribeEvent(DeactivationEvent.class,c);
     }
 }
