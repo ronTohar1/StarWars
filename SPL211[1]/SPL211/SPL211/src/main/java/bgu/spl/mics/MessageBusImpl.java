@@ -135,6 +135,6 @@ public class MessageBusImpl implements MessageBus {
 	public Message awaitMessage(MicroService m) throws InterruptedException {
 		// removing the first Message from the BlockingQueue of Messages of m. Because it's a blocking queue, it a
 		// message does not exist there yet, it waits until there is a Message in the queue:
-		return microservicesToQueues.get(m).remove();
+		return microservicesToQueues.get(m).poll();
 	}
 }
