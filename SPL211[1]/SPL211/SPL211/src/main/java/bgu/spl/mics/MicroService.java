@@ -40,6 +40,7 @@ public abstract class MicroService implements Runnable {
         messageCallbackMap= new HashMap<Class<? extends Message>, Callback>();
         bus= MessageBusImpl.getInstance();
         isRunning=false;
+        bus.register(this);
         initialize();
     }
 

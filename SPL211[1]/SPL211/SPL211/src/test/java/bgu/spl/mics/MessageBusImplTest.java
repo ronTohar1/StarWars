@@ -23,7 +23,7 @@ class MessageBusImplTest {
     // more fields to help test the MessageBusImpl:
     private MicroService microService1;
     private MicroService microService2;
-    private final AttackEvent attackEvent = new AttackEvent();
+    private final AttackEvent attackEvent = new AttackEvent(null);
     private final Class<AttackEvent> eventType = AttackEvent.class;
     private final Broadcast broadcast = new Broadcast() {};
     private final Class<? extends Broadcast> broadcastType = broadcast.getClass();
