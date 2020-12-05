@@ -1,6 +1,8 @@
 package bgu.spl.mics.application.services;
 
+import bgu.spl.mics.Callback;
 import bgu.spl.mics.MicroService;
+import bgu.spl.mics.application.messages.AttackEvent;
 
 
 /**
@@ -19,6 +21,9 @@ public class C3POMicroservice extends MicroService {
 
     @Override
     protected void initialize() {
-
+        Callback<AttackEvent> c= (a)->{
+            System.out.println("C3PO callback");
+        };
+        subscribeEvent(AttackEvent.class,c);
     }
 }
