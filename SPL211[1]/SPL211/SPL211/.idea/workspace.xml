@@ -22,13 +22,6 @@
     <list default="true" id="cbccade4-06c3-4622-a6d8-010992859a67" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" afterDir="false" />
-<<<<<<< HEAD
-=======
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MicroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MicroService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/MessageBusImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/MessageBusImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/bgu/spl/mics/MessageBusImplTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/bgu/spl/mics/MessageBusImplTest.class" afterDir="false" />
->>>>>>> 303a94f79a54b6c6b6c23a0073957bf0ab5ae566
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,36 +63,7 @@
       <recent name="" />
     </key>
   </component>
-<<<<<<< HEAD
   <component name="RunManager" selected="JUnit.MessageBusImplTest">
-=======
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.application.Main" />
-      <module name="SPL211" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="bgu.spl.mics.application.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
->>>>>>> 303a94f79a54b6c6b6c23a0073957bf0ab5ae566
     <configuration name="EwokTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SPL211" />
       <extension name="coverage">
@@ -163,18 +127,10 @@
     </configuration>
     <recent_temporary>
       <list>
-<<<<<<< HEAD
-=======
-        <item itemvalue="Application.Main" />
->>>>>>> 303a94f79a54b6c6b6c23a0073957bf0ab5ae566
         <item itemvalue="JUnit.MessageBusImplTest" />
         <item itemvalue="JUnit.EwokTest" />
         <item itemvalue="JUnit.FutureTest" />
         <item itemvalue="JUnit.FutureTest.testGet" />
-<<<<<<< HEAD
-        <item itemvalue="JUnit.MessageBusImplTest.testSubscribeBroadcast" />
-=======
->>>>>>> 303a94f79a54b6c6b6c23a0073957bf0ab5ae566
       </list>
     </recent_temporary>
   </component>
