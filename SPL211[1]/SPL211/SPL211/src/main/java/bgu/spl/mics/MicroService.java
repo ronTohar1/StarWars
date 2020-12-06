@@ -37,11 +37,9 @@ public abstract class MicroService implements Runnable {
      */
     public MicroService(String name) {
     	this.name=name;
-        messageCallbackMap= new HashMap<Class<? extends Message>, Callback>();
+        messageCallbackMap= new HashMap<>();
         bus= MessageBusImpl.getInstance();
         isRunning=false;
-        bus.register(this);
-        initialize();
     }
 
     /**
@@ -163,18 +161,20 @@ public abstract class MicroService implements Runnable {
      */
     @Override
     public final void run() {
-
+        bus.register(this);
+        initialize();
+        Message message;
+        isRunning=true;
         while(isRunning) {
-            Message message= null;
             try {
                 message = bus.awaitMessage(this);
-                Class<? extends Message> type=message.getClass();
-                messageCallbackMap.get(type).call(message);
+                messageCallbackMap.get(message.getClass()).call(message);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
         }
+        bus.unregister(this);
     }
 
 
