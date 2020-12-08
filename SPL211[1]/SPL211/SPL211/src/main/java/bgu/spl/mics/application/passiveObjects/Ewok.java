@@ -8,10 +8,22 @@ package bgu.spl.mics.application.passiveObjects;
  */
 
 public class Ewok {
+    // this class is not threaded safe, because TODO: complete why
+
 	int serialNumber;
 	boolean available;
 
     /**
+     * A constructor that creates an Ewok with the given serial number, and makes it available
+     * @param serialNumber the serial number of the Ewok to create
+     */
+	public Ewok(int serialNumber){
+        this.serialNumber = serialNumber;
+        this.available = true;
+    }
+
+    /**
+     * This constructor is used for testing
      * A constructor that creates an Ewok with the given serial number and availability
      * @param serialNumber the serial number of the Ewok to create
      * @param available will the created Ewok be available
@@ -39,6 +51,7 @@ public class Ewok {
     	if (isAvailable())
     	    throw new IllegalStateException("Can't release an available Ewok");
     	available = true;
+    	notify();
     }
 
     /**
@@ -47,5 +60,18 @@ public class Ewok {
      */
     public boolean isAvailable(){
         return available;
+    }
+
+    public synchronized void blockingAcquire() throws InterruptedException{
+        try{
+            while (!isAvailable()){
+                wait();
+            }
+            // the ewok is available now:
+            acquire();
+        }
+        catch (InterruptedException interruptedException){
+            throw new InterruptedException();
+        }
     }
 }

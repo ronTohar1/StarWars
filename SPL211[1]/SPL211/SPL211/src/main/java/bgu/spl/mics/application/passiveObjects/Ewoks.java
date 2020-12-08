@@ -11,4 +11,16 @@ package bgu.spl.mics.application.passiveObjects;
  */
 public class Ewoks {
 
+    private static Ewoks instance = new Ewoks(); // TODO: change to better threaded safe singleton
+
+    private
+
+    private Ewoks(){
+
+    }
+
+    public static Ewoks getInstance(){
+        return instance;
+    }
+
 }
