@@ -28,9 +28,7 @@ public class C3POMicroservice extends MicroService {
         Callback<AttackEvent> attackEventCallback= (a)->{
             Attack attack=a.getAttack();
             Ewoks ewoks = Ewoks.getInstance();
-            for (Integer ewokSerial : attack.getSerials()){
-                ewoks.aquireEwok(ewokSerial);
-            }
+            ewoks.aquire(attack.getSerials());
             try {
                 Thread.sleep(attack.getDuration());
             } catch (InterruptedException e) {
