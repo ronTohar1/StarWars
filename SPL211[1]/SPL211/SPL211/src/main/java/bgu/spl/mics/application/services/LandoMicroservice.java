@@ -19,7 +19,7 @@ public class LandoMicroservice  extends MicroService {
 
     @Override
     protected void initialize() {
-        Callback<BombDestroyerEvent> bombDestroyerEventCallback=(a)->{
+        Callback<BombDestroyerEvent> bombDestroyerEventCallback=(bombDestroyerEvent)->{
             try {
                 Thread.sleep(duration);
             } catch (InterruptedException e) {
@@ -29,7 +29,7 @@ public class LandoMicroservice  extends MicroService {
         subscribeEvent(BombDestroyerEvent.class,bombDestroyerEventCallback);
 
         //Termination event registration
-        Callback<TerminationBroadcast> terminationCallback=(f)->{
+        Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
             terminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);

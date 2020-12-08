@@ -33,7 +33,7 @@ public class LeiaMicroservice extends MicroService {
     protected void initialize() {
 
         //Subscribing to Termination Broadcast.
-        Callback<TerminationBroadcast> terminationCallback=(f)->{
+        Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
             terminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
