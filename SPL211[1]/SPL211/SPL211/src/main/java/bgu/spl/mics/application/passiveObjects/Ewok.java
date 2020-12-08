@@ -33,45 +33,50 @@ public class Ewok {
 	    this.available = available;
     }
 
+//    /**
+//     * Acquires an Ewok if available, otherwise throws an exception
+//     * @throws IllegalStateException if the Ewok is already unavailable
+//     */
+//    public void acquire() {
+//		if (!isAvailable())
+//		    throw new IllegalStateException("Can't acquire an unavailable Ewok");
+//		available = false;
+//    }
+
     /**
-     * Acquires an Ewok if available, otherwise throws an exception
-     * @throws IllegalStateException if the Ewok is already unavailable
+     * This method acquires the Ewok. If the Ewok is not available, it waits until it is
+     * This method is blocking
+     * @throws InterruptedException in case of an interruption
      */
-    public void acquire() {
-		if (!isAvailable())
-		    throw new IllegalStateException("Can't acquire an unavailable Ewok");
-		available = false;
+    public synchronized void acquire() throws InterruptedException{
+        try{
+            while (!isAvailable()){
+                wait();
+            }
+            // the ewok is available now:
+            this.available = false; // acquiring the Ewok. No need to notify TODO: is it sure?
+        }
+        catch (InterruptedException interruptedException){ // TODO: should we not catch at all?
+            throw new InterruptedException();
+        }
     }
 
     /**
      * release an Ewok if unavailable, otherwise throws an exception
      * @throws IllegalStateException if the Ewok is already available
      */
-    public void release() {
+    public synchronized void release() {
     	if (isAvailable())
     	    throw new IllegalStateException("Can't release an available Ewok");
     	available = true;
-    	notify();
+    	notify(); // waiting only for acquiring the Ewok TODO: is okay?
     }
 
     /**
      * this method checks if the Ewok is available
      * @return true if the Ewok is available, or false otherwise
      */
-    public boolean isAvailable(){
+    public synchronized boolean isAvailable(){ // TODO: should it be synchronized?
         return available;
-    }
-
-    public synchronized void blockingAcquire() throws InterruptedException{
-        try{
-            while (!isAvailable()){
-                wait();
-            }
-            // the ewok is available now:
-            acquire();
-        }
-        catch (InterruptedException interruptedException){
-            throw new InterruptedException();
-        }
     }
 }
