@@ -1,17 +1,13 @@
 package bgu.spl.mics.application.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import bgu.spl.mics.Callback;
 import bgu.spl.mics.Future;
 import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.messages.AttackEvent;
 import bgu.spl.mics.application.messages.BombDestroyerEvent;
 import bgu.spl.mics.application.messages.DeactivationEvent;
-import bgu.spl.mics.application.messages.FinishedMissionBroadcast;
+import bgu.spl.mics.application.messages.TerminationBroadcast;
 import bgu.spl.mics.application.passiveObjects.Attack;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 /**
  * LeiaMicroservices Initialized with Attack objects, and sends them as  {@link AttackEvent}.
@@ -36,11 +32,11 @@ public class LeiaMicroservice extends MicroService {
     @Override
     protected void initialize() {
 
-        Callback<FinishedMissionBroadcast> terminationCallback=(f)->{
+        //Subscribing to Termination Broadcast.
+        Callback<TerminationBroadcast> terminationCallback=(f)->{
             terminate();
         };
-
-        subscribeBroadcast(FinishedMissionBroadcast.class,terminationCallback);
+        subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
 
         //Sleeping so everyone can subscribe.
         try {
@@ -49,7 +45,22 @@ public class LeiaMicroservice extends MicroService {
             e.printStackTrace();
         }
 
+        //Executing attacks
+        executeAttackEvents();
+        //After executing attacks, destroying shields.
+        destroyShieldEvent();
+        //After destroying shield, executing bombing event.
+        bombEvent();
+        //After executing the bomb event, sending the termination broadcast
+        sendTerminationSignal();
+    }
 
+    /**
+     * Executing all of the attack events.
+     * Sending each attack to a {@Link MicroService} to handle it.
+     * After
+     */
+    private void executeAttackEvents(){
         for (Attack a : attacks) {
             Future<Boolean> attackFuture = this.sendEvent(new AttackEvent(a));
             attackFutures[futuresCounter]=attackFuture;
@@ -64,7 +75,14 @@ public class LeiaMicroservice extends MicroService {
                     attackFutures[i] = sendEvent(new AttackEvent(attacks[i]));
             }
         }
+    }
 
+    private void sendTerminationSignal(){
+        //Terminating every thread.
+        sendBroadcast(new TerminationBroadcast());
+    }
+
+    private void destroyShieldEvent(){
         //Deactivating the shield.
         Future<Boolean> deactivationFuture= this.sendEvent(new DeactivationEvent());
         Boolean deactivated=false;
@@ -74,7 +92,9 @@ public class LeiaMicroservice extends MicroService {
             if(!deactivated)
                 deactivationFuture=sendEvent(new DeactivationEvent());
         }
+    }
 
+    private void bombEvent(){
         //After deactivating the shield-> sending a broadcast to bomb the star
         //Bombing the star.
         Future<Boolean> bombDestructionFuture= sendEvent(new BombDestroyerEvent());
@@ -85,8 +105,5 @@ public class LeiaMicroservice extends MicroService {
             if(!bombLanded)
                 bombDestructionFuture=sendEvent(new BombDestroyerEvent());
         }
-
-        //Terminating every thread.
-        sendBroadcast(new FinishedMissionBroadcast());
     }
 }

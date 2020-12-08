@@ -3,9 +3,8 @@ package bgu.spl.mics.application.services;
 import bgu.spl.mics.Callback;
 import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.messages.AttackEvent;
-import bgu.spl.mics.application.messages.FinishedMissionBroadcast;
+import bgu.spl.mics.application.messages.TerminationBroadcast;
 import bgu.spl.mics.application.passiveObjects.Attack;
-import bgu.spl.mics.application.passiveObjects.Ewok;
 import bgu.spl.mics.application.passiveObjects.Ewoks;
 
 
@@ -40,9 +39,9 @@ public class C3POMicroservice extends MicroService {
         subscribeEvent(AttackEvent.class,attackEventCallback);
 
         //Termination event registration
-        Callback<FinishedMissionBroadcast> terminationCallback=(f)->{
+        Callback<TerminationBroadcast> terminationCallback=(f)->{
             terminate();
         };
-        subscribeBroadcast(FinishedMissionBroadcast.class,terminationCallback);
+        subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
     }
 }

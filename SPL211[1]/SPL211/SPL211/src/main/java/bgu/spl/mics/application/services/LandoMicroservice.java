@@ -3,7 +3,7 @@ package bgu.spl.mics.application.services;
 import bgu.spl.mics.Callback;
 import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.messages.BombDestroyerEvent;
-import bgu.spl.mics.application.messages.FinishedMissionBroadcast;
+import bgu.spl.mics.application.messages.TerminationBroadcast;
 
 /**
  * LandoMicroservice
@@ -29,10 +29,10 @@ public class LandoMicroservice  extends MicroService {
         subscribeEvent(BombDestroyerEvent.class,bombDestroyerEventCallback);
 
         //Termination event registration
-        Callback<FinishedMissionBroadcast> terminationCallback=(f)->{
+        Callback<TerminationBroadcast> terminationCallback=(f)->{
             terminate();
         };
-        subscribeBroadcast(FinishedMissionBroadcast.class,terminationCallback);
+        subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
        
     }
 }

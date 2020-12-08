@@ -3,7 +3,7 @@ package bgu.spl.mics.application.services;
 import bgu.spl.mics.Callback;
 import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.messages.DeactivationEvent;
-import bgu.spl.mics.application.messages.FinishedMissionBroadcast;
+import bgu.spl.mics.application.messages.TerminationBroadcast;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -35,10 +35,10 @@ public class R2D2Microservice extends MicroService {
         subscribeEvent(DeactivationEvent.class,deactivationEventCallback);
 
         //Termination event registration
-        Callback<FinishedMissionBroadcast> terminationCallback=(f)->{
+        Callback<TerminationBroadcast> terminationCallback=(f)->{
             terminate();
         };
-        subscribeBroadcast(FinishedMissionBroadcast.class,terminationCallback);
+        subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
 
     }
 }
