@@ -5,6 +5,7 @@ import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.messages.AttackEvent;
 import bgu.spl.mics.application.messages.TerminationBroadcast;
 import bgu.spl.mics.application.passiveObjects.Attack;
+import bgu.spl.mics.application.passiveObjects.Diary;
 import bgu.spl.mics.application.passiveObjects.Ewoks;
 
 
@@ -34,12 +35,19 @@ public class C3POMicroservice extends MicroService {
                 e.printStackTrace();
             }
             ewoks.release(attack.getSerials());
+            //Informing the diary of the changes.
+            Diary diary= Diary.getInstance();
+            diary.incrementTotalAttacks();
+            diary.stampC3POFinish();
+
         };
         subscribeEvent(AttackEvent.class,attackEventCallback);
 
         //Termination event registration
         Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
             terminate();
+            //Informing the diary of the termination.
+            Diary.getInstance().stampC3POTerminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
     }

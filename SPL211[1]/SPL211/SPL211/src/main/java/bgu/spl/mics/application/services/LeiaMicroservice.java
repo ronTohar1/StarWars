@@ -8,6 +8,7 @@ import bgu.spl.mics.application.messages.BombDestroyerEvent;
 import bgu.spl.mics.application.messages.DeactivationEvent;
 import bgu.spl.mics.application.messages.TerminationBroadcast;
 import bgu.spl.mics.application.passiveObjects.Attack;
+import bgu.spl.mics.application.passiveObjects.Diary;
 
 /**
  * LeiaMicroservices Initialized with Attack objects, and sends them as  {@link AttackEvent}.
@@ -35,6 +36,8 @@ public class LeiaMicroservice extends MicroService {
         //Subscribing to Termination Broadcast.
         Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
             terminate();
+            //Informing the diary of the termination.
+            Diary.getInstance().stampLeiaTerminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
 

@@ -4,6 +4,7 @@ import bgu.spl.mics.Callback;
 import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.messages.BombDestroyerEvent;
 import bgu.spl.mics.application.messages.TerminationBroadcast;
+import bgu.spl.mics.application.passiveObjects.Diary;
 
 /**
  * LandoMicroservice
@@ -25,12 +26,16 @@ public class LandoMicroservice  extends MicroService {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            //Informing the diary of the changes
+            Diary.getInstance().stampLandoTerminate();
         };
         subscribeEvent(BombDestroyerEvent.class,bombDestroyerEventCallback);
 
         //Termination event registration
         Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
             terminate();
+            //Informing the diary of the termination.
+            Diary.getInstance().stampLandoTerminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
        

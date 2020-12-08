@@ -6,6 +6,7 @@ import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.messages.AttackEvent;
 import bgu.spl.mics.application.messages.TerminationBroadcast;
 import bgu.spl.mics.application.passiveObjects.Attack;
+import bgu.spl.mics.application.passiveObjects.Diary;
 import bgu.spl.mics.application.passiveObjects.Ewoks;
 
 
@@ -36,13 +37,18 @@ public class HanSoloMicroservice extends MicroService {
                 e.printStackTrace();
             }
             ewoks.release(attack.getSerials());
-
+            //Informing the diary of the changes.
+            Diary diary= Diary.getInstance();
+            diary.incrementTotalAttacks();
+            diary.stampHanSoloFinish();
         };
         subscribeEvent(AttackEvent.class,c);
 
         //Termination event registration
         Callback<TerminationBroadcast> terminationCallback=(f)->{
             terminate();
+            //Informing the diary of the termination.
+            Diary.getInstance().stampHanSoloTerminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
     }
