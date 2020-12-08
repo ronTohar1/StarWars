@@ -100,7 +100,6 @@ class MessageBusImplTest {
     }
 
     @Test
-
     void testSendEventAndAwaitMessage() throws InterruptedException {
         // This test checks the sendEvent and awaitMessage methods, because they can't each be tested separately
         Message message = registerSubscribeToEventSendEventAndAwaitMessageReturnsMessage();
