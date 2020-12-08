@@ -9,9 +9,9 @@ import bgu.spl.mics.application.passiveObjects.Ewoks;
 
 
 /**
- * C3POMicroservices is in charge of the handling {@link AttackEvents}.
+ * C3POMicroservices is in charge of the handling {@link AttackEvent}.
  * This class may not hold references for objects which it is not responsible for:
- * {@link AttackEvents}.
+ * {@link AttackEvent}.
  *
  * You can add private fields and public methods to this class.
  * You MAY change constructor signatures and even add new public constructors.
@@ -27,13 +27,13 @@ public class C3POMicroservice extends MicroService {
         Callback<AttackEvent> attackEventCallback= (a)->{
             Attack attack=a.getAttack();
             Ewoks ewoks = Ewoks.getInstance();
-            ewoks.aquire(attack.getSerials());
+            ewoks.acquire(attack.getSerials());
             try {
                 Thread.sleep(attack.getDuration());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            ewoks.releas(attack.getSerials());
+            ewoks.release(attack.getSerials());
 
         };
         subscribeEvent(AttackEvent.class,attackEventCallback);

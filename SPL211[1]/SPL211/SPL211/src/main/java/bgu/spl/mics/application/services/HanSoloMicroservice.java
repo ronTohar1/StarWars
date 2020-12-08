@@ -29,13 +29,13 @@ public class HanSoloMicroservice extends MicroService {
         Callback<AttackEvent> c= (a)->{
             Attack attack=a.getAttack();
             Ewoks ewoks = Ewoks.getInstance();
-            ewoks.aquire(attack.getSerials());
+            ewoks.acquire(attack.getSerials());
             try {
                 Thread.sleep(attack.getDuration());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            ewoks.releas(attack.getSerials());
+            ewoks.release(attack.getSerials());
 
         };
         subscribeEvent(AttackEvent.class,c);

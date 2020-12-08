@@ -20,7 +20,7 @@ class EwokTest {
     @Test
     void testAcquire() {
         // test acquire available Ewok:
-        availableEwok.acquire();
+        // availableEwok.acquire();
         assertFalse(availableEwok.isAvailable());
         // test acquire unavailable Ewok:
         try{

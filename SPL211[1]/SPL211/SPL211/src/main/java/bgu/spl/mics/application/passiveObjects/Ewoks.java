@@ -1,8 +1,5 @@
 package bgu.spl.mics.application.passiveObjects;
 
-
-import org.graalvm.compiler.nodes.calc.ObjectEqualsNode;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
