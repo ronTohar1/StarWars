@@ -11,4 +11,12 @@ package bgu.spl.mics.application.passiveObjects;
  */
 public class Ewoks {
 
+    public static Ewoks getInstance(){
+
+    }
+
+    public void aquireEwok(int serialNum){
+        
+    }
+
 }

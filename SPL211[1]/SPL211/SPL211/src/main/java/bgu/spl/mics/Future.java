@@ -32,20 +32,32 @@ public class Future<T> {
      * 	       
      */
 	public T get() {
-		while (!isDone){
-			// waiting for resolve...
+		synchronized (this) {
+
+		while (!isDone) {
+				try {
+					wait();
+				} catch (InterruptedException e) {
+					// TODO: 06/12/2020 what are we doing here?
+				}
+			}
+
 		}
 		return result;
 	}
-	
+
 	/**
-     * Resolves the result of this Future object.
-     */
+	 * Resolves the result of this Future object.
+	 */
 	public void resolve (T result) {
-		if (isDone)
-			throw new IllegalStateException("Can't resolve because already resolved");
-		this.result = result;
-		isDone = true;
+		synchronized (this) {
+			if (isDone)
+				throw new IllegalStateException("Can't resolve because already resolved");// TODO: 06/12/2020 is that okay? throwing.
+			this.result = result;
+			isDone = true;
+
+			notifyAll();
+		}
 	}
 	
 	/**
@@ -68,12 +80,21 @@ public class Future<T> {
      */
 	public T get(long timeout, TimeUnit unit) {
 
-		long timeoutDurationInMilliSeconds = unit.convert(timeout, TimeUnit.MILLISECONDS);
+
+		long timeoutDurationInMilliSeconds = unit.toMillis(timeout);
 		long startTime = System.currentTimeMillis();
-		while (!isDone && System.currentTimeMillis() - startTime < timeoutDurationInMilliSeconds){
-			// waiting for resolve...
+		synchronized (this) {
+			if (!isDone) {
+				// waiting for resolve...
+				try {
+					wait(timeoutDurationInMilliSeconds);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		return result; // result is null if not done
+			return result; // result is null if not done
+
 	}
 
 }
