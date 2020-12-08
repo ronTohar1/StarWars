@@ -2,6 +2,8 @@ package bgu.spl.mics;
 
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * The {@link MessageBusImpl class is the implementation of the MessageBus interface.
@@ -103,6 +105,7 @@ public class MessageBusImpl implements MessageBus {
 	public <T> Future<T> sendEvent(Event<T> e) {
 		// adding e to the blocking queue of the next microservice registered to it in the round robin manner:
 		Queue<BlockingQueue<Message>> queueOfEvent = typesToQueues.get(e.getClass()); // the queue of the blocking
+		// TODO: 06/12/2020  should we check if the queueOfEvent==null?? (we get null if no one subscribed to this event. why not check it?)
 		// queues of the microservices registered to Events of the type of e
 		BlockingQueue<Message> blockingQueueToReceiveE;
 		synchronized (queueOfTypeRemoveLock) {

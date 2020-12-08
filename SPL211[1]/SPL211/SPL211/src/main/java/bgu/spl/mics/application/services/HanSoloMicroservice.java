@@ -4,7 +4,9 @@ package bgu.spl.mics.application.services;
 import bgu.spl.mics.Callback;
 import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.messages.AttackEvent;
+import bgu.spl.mics.application.messages.TerminationBroadcast;
 import bgu.spl.mics.application.passiveObjects.Attack;
+import bgu.spl.mics.application.passiveObjects.Ewoks;
 
 
 /**
@@ -25,11 +27,24 @@ public class HanSoloMicroservice extends MicroService {
     @Override
     protected void initialize() {
         Callback<AttackEvent> c= (a)->{
-            System.out.println("HanSolo callback");
             Attack attack=a.getAttack();
+            Ewoks ewoks = Ewoks.getInstance();
+            ewoks.aquire(attack.getSerials());
+            try {
+                Thread.sleep(attack.getDuration());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            ewoks.releas(attack.getSerials());
+
         };
         subscribeEvent(AttackEvent.class,c);
 
+        //Termination event registration
+        Callback<TerminationBroadcast> terminationCallback=(f)->{
+            terminate();
+        };
+        subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
     }
 
 
