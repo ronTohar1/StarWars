@@ -34,6 +34,7 @@ public class C3POMicroservice extends MicroService {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            ewoks.releas(attack.getSerials());
 
         };
         subscribeEvent(AttackEvent.class,attackEventCallback);

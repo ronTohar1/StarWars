@@ -35,6 +35,7 @@ public class HanSoloMicroservice extends MicroService {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            ewoks.releas(attack.getSerials());
 
         };
         subscribeEvent(AttackEvent.class,c);
