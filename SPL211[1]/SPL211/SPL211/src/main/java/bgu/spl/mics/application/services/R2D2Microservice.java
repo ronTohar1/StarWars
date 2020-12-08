@@ -25,7 +25,7 @@ public class R2D2Microservice extends MicroService {
 
     @Override
     protected void initialize() {
-        Callback<DeactivationEvent> deactivationEventCallback=(a)->{
+        Callback<DeactivationEvent> deactivationEventCallback=(DeactivationEvent)->{
             try {
                 Thread.sleep(sleepDuration);
             } catch (InterruptedException e) {
@@ -35,7 +35,7 @@ public class R2D2Microservice extends MicroService {
         subscribeEvent(DeactivationEvent.class,deactivationEventCallback);
 
         //Termination event registration
-        Callback<TerminationBroadcast> terminationCallback=(f)->{
+        Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
             terminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);

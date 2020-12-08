@@ -24,22 +24,21 @@ public class C3POMicroservice extends MicroService {
 
     @Override
     protected void initialize() {
-        Callback<AttackEvent> attackEventCallback= (a)->{
-            Attack attack=a.getAttack();
+        Callback<AttackEvent> attackEventCallback= (attackEvent)->{
+            Attack attack=attackEvent.getAttack();
             Ewoks ewoks = Ewoks.getInstance();
-            ewoks.acquire(attack.getSerials());
             try {
+                ewoks.acquire(attack.getSerials());
                 Thread.sleep(attack.getDuration());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             ewoks.release(attack.getSerials());
-
         };
         subscribeEvent(AttackEvent.class,attackEventCallback);
 
         //Termination event registration
-        Callback<TerminationBroadcast> terminationCallback=(f)->{
+        Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
             terminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);

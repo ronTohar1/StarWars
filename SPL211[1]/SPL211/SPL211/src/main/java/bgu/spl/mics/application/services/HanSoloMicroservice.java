@@ -26,11 +26,11 @@ public class HanSoloMicroservice extends MicroService {
 
     @Override
     protected void initialize() {
-        Callback<AttackEvent> c= (a)->{
-            Attack attack=a.getAttack();
+        Callback<AttackEvent> c= (attackEvent)->{
+            Attack attack=attackEvent.getAttack();
             Ewoks ewoks = Ewoks.getInstance();
-            ewoks.acquire(attack.getSerials());
             try {
+                ewoks.acquire(attack.getSerials());
                 Thread.sleep(attack.getDuration());
             } catch (InterruptedException e) {
                 e.printStackTrace();
