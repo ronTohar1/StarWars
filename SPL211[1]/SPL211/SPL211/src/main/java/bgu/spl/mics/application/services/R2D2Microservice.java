@@ -1,9 +1,12 @@
 package bgu.spl.mics.application.services;
 
 import bgu.spl.mics.Callback;
+import bgu.spl.mics.MessageBus;
+import bgu.spl.mics.MessageBusImpl;
 import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.messages.DeactivationEvent;
 import bgu.spl.mics.application.messages.TerminationBroadcast;
+import bgu.spl.mics.application.passiveObjects.Diary;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -26,16 +29,21 @@ public class R2D2Microservice extends MicroService {
     @Override
     protected void initialize() {
         Callback<DeactivationEvent> deactivationEventCallback=(DeactivationEvent)->{
+            MessageBus messageBus = MessageBusImpl.getInstance();
             try {
                 Thread.sleep(sleepDuration);
+                Diary.getInstance().stampR2D2Deactivate();
+                messageBus.complete(DeactivationEvent, true); // TODO: should it be like this?
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                messageBus.complete(DeactivationEvent, false); // TODO: should it be like this?
             }
         };
         subscribeEvent(DeactivationEvent.class,deactivationEventCallback);
 
         //Termination event registration
         Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
+            Diary.getInstance().stampR2D2Terminate();
             terminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);

@@ -26,7 +26,7 @@ public class Diary {
     // TODO: do we need to enforce that each method is called by the one that is allowed to call it
 
     private Diary(){
-        totalAttacks.set(0);
+        totalAttacks = new AtomicInteger(0);
     }
 
     public static Diary getInstance(){

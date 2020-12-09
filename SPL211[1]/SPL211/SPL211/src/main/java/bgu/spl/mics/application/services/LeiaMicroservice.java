@@ -8,6 +8,7 @@ import bgu.spl.mics.application.messages.BombDestroyerEvent;
 import bgu.spl.mics.application.messages.DeactivationEvent;
 import bgu.spl.mics.application.messages.TerminationBroadcast;
 import bgu.spl.mics.application.passiveObjects.Attack;
+import bgu.spl.mics.application.passiveObjects.Diary;
 
 /**
  * LeiaMicroservices Initialized with Attack objects, and sends them as  {@link AttackEvent}.
@@ -34,23 +35,30 @@ public class LeiaMicroservice extends MicroService {
 
         //Subscribing to Termination Broadcast.
         Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
+            // System.out.println("About to terminate");
+            Diary.getInstance().stampLeiaTerminate();
             terminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
 
         //Sleeping so everyone can subscribe.
         try {
+            // System.out.println("Sleeping so everyone can subscribe");
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+        // System.out.println("Executing attacks:");
         //Executing attacks
         executeAttackEvents();
+        // System.out.println("Destroying shields:");
         //After executing attacks, destroying shields.
         destroyShieldEvent();
+        // System.out.println("Executing bombing:");
         //After destroying shield, executing bombing event.
         bombEvent();
+        // System.out.println("Sending termination signal:");
         //After executing the bomb event, sending the termination broadcast
         sendTerminationSignal();
     }
@@ -64,11 +72,13 @@ public class LeiaMicroservice extends MicroService {
         for (Attack a : attacks) {
             Future<Boolean> attackFuture = this.sendEvent(new AttackEvent(a));
             attackFutures[futuresCounter]=attackFuture;
+            futuresCounter++; // TODO: should it be like this?
         }
         for(int i=0;i<attackFutures.length;i++){
             Boolean futureIsResolved=false;
             while(!futureIsResolved) {
                 futureIsResolved = attackFutures[i].get();
+                // System.out.println("future resolved: " + futureIsResolved);
                 // TODO: 08/12/2020  check if need to send again.
                 //Re-sending an attack
                 if(!futureIsResolved)

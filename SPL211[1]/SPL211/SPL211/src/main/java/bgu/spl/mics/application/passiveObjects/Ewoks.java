@@ -28,10 +28,11 @@ public class Ewoks {
      * given number of ewoks
      * @param numberOfEwoks the number of Ewoks to initialize the class with
      */
-    public void initialize(int numberOfEwoks){ // TODO: is it okay to use this
-        ewoks = new Ewok[numberOfEwoks];
-        for (int index = 0; index < ewoks.length; index++)
-            ewoks[index] = new Ewok(toSerialNumber(index)); // Creates a non available Ewok
+    public static void initialize(int numberOfEwoks){ // TODO: is it okay to use this
+        Ewoks instance = getInstance();
+        instance.ewoks = new Ewok[numberOfEwoks];
+        for (int index = 0; index < instance.ewoks.length; index++)
+            instance.ewoks[index] = new Ewok(toSerialNumber(index)); // Creates a non available Ewok
     }
 
     public static Ewoks getInstance(){
@@ -47,6 +48,8 @@ public class Ewoks {
     public void acquire(List<Integer> ewoksSerialNumbers) throws InterruptedException{ // TODO: is it ok to use this. Check their version
         Collections.sort(ewoksSerialNumbers); // to avoid deadlocks
         for (int ewokSerialNumber : ewoksSerialNumbers){
+            // System.out.println("Acquiring Ewok of serial number number: " + ewokSerialNumber + " by thread number: "
+            //         + Thread.currentThread().getName());
             getEwokOfSerialNumber(ewokSerialNumber).acquire();
         }
     }
@@ -57,6 +60,8 @@ public class Ewoks {
      */
     public void release(List<Integer> ewoksSerialNumbers){
         for (int ewokSerialNumber : ewoksSerialNumbers){
+            // System.out.println("Realising Ewok of serial number number: " + ewokSerialNumber + " by thread number: "
+            //         + Thread.currentThread().getName());
             getEwokOfSerialNumber(ewokSerialNumber).release();
         }
     }
@@ -66,7 +71,7 @@ public class Ewoks {
      * @param index the index in Ewoks to convert to its Ewok's serial number
      * @return the serial number of the Ewok in the given index in ewoks
      */
-    private int toSerialNumber(int index){
+    private static int toSerialNumber(int index){
         return index + 1; // the ewoks' serial numbers start from 1
     }
 
@@ -84,7 +89,7 @@ public class Ewoks {
      * @param serialNumber the serial number of the ewok to return its index in ewoks
      * @return the index of the ewok of the given serial number
      */
-    private int toIndex(int serialNumber){
+    private static int toIndex(int serialNumber){
         return serialNumber - 1; // the ewoks' serial numbers start from 1
     }
 }
