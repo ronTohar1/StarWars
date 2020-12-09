@@ -2,8 +2,6 @@ package bgu.spl.mics;
 
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * The {@link MessageBusImpl class is the implementation of the MessageBus interface.
@@ -19,13 +17,13 @@ public class MessageBusImpl implements MessageBus {
 	// will be used to assign messages to their registered microservices' queues
 	private Map<Event,Future> eventsToFutures; // used to resolve the Future object of an Event when Complete is called
 	// with the Event
-	private Map<MicroService, List<Queue<BlockingQueue<Message>>>> microservicesToTypeQueues; // used to delete the
+	private Map<MicroService, List<Class<? extends Message>>> microservicesToSubscribedTypes; // used to delete the
 	// microservice's blocking queue from the message types' Queues
 	private Map<MicroService, BlockingQueue<Message>> microservicesToQueues; // maps the microservice to its blocking
 	// queue of messages to fetch
 
-	private  Map<Class<? extends Message>,Object> messageTypesLocks;
-	private final Object queueOfTypeRemoveLock;
+	private Map<Class<? extends Message>,Object> messageTypesLocks;
+	// private final Object queueOfTypeRemoveLock;
 
 	/**
 	 * a private constructor for the singleton design pattern
@@ -34,10 +32,11 @@ public class MessageBusImpl implements MessageBus {
 		// initializing the maps with empty new maps:
 		typesToQueues = new ConcurrentHashMap<>();
 		eventsToFutures = new ConcurrentHashMap<>();
-		microservicesToTypeQueues = new ConcurrentHashMap<>();
+		microservicesToSubscribedTypes = new ConcurrentHashMap<>();
 		microservicesToQueues = new ConcurrentHashMap<>();
+
 		messageTypesLocks= new ConcurrentHashMap<>();
-		queueOfTypeRemoveLock= new Object();
+		// queueOfTypeRemoveLock= new Object();
 	}
 
 	/**
@@ -52,12 +51,12 @@ public class MessageBusImpl implements MessageBus {
 	@Override
 	public <T> void subscribeEvent(Class<? extends Event<T>> type, MicroService m) {
 		// Assuming m is not subscribed to type yet
-		if (!typesToQueues.containsKey(type)) // if this is the first microservice to register to this type of Message
+		if (!typesToQueues.containsKey(type)) // TODO: add contains key on the locks map? // if this is the first microservice to register to this type of Message
 			addQueueOfMessageTypeIfNotExist(type); //create a Queue for the BlockingQueues of the microservices registered to type
 		Queue<BlockingQueue<Message>> queueOfType = typesToQueues.get(type); // the queue of the blocking Queues of the
 		// microservices registered to type
 		queueOfType.add(microservicesToQueues.get(m)); // adding the blocking queue of m
-		microservicesToTypeQueues.get(m).add(queueOfType); // adding the queue which the blocking queue was added to
+		microservicesToSubscribedTypes.get(m).add(type); // adding the queue which the blocking queue was added to
 		//the List of Queues of blocking queues that contain the blocking q of m
 	}
 
@@ -69,7 +68,7 @@ public class MessageBusImpl implements MessageBus {
 		Queue<BlockingQueue<Message>> queueOfType = typesToQueues.get(type); // the queue of the blocking Queues of the
 		// microservices registered to type
 		queueOfType.add(microservicesToQueues.get(m)); // adding the blocking queue of m
-		microservicesToTypeQueues.get(m).add(queueOfType); // adding the queue which the blocking queue was added to
+		microservicesToSubscribedTypes.get(m).add(type); // adding the queue which the blocking queue was added to
 		// to the List of Queues of blocking queues that contain the blocking q of m
     }
 
@@ -100,20 +99,24 @@ public class MessageBusImpl implements MessageBus {
 		}
 	}
 
-	
+
 	@Override
 	public <T> Future<T> sendEvent(Event<T> e) {
+		Class<? extends Event> eventType = e.getClass();
 		// adding e to the blocking queue of the next microservice registered to it in the round robin manner:
-		Queue<BlockingQueue<Message>> queueOfEvent = typesToQueues.get(e.getClass()); // the queue of the blocking
+		// the queue of the blocking
 		// TODO: 06/12/2020  should we check if the queueOfEvent==null?? (we get null if no one subscribed to this event. why not check it?)
 		// queues of the microservices registered to Events of the type of e
-		BlockingQueue<Message> blockingQueueToReceiveE;
-		synchronized (queueOfTypeRemoveLock) {
+
+		if (!typesToQueues.containsKey(eventType)) // doesn't need to be synchronized because the queues of events are never deleted (even in empty)
+			return null;
+		Queue<BlockingQueue<Message>> queueOfEvent = typesToQueues.get(eventType);
+		synchronized (messageTypesLocks.get(eventType)) {
 			if (queueOfEvent.isEmpty()) // if no microservice subscribed to the type of e
 				return null;
 			// removing the blocking queue from the beginning of the queue. adding e to it and then returning it to the end
 			// of the queue of Event:
-			blockingQueueToReceiveE = queueOfEvent.remove();
+			BlockingQueue<Message> blockingQueueToReceiveE = queueOfEvent.remove();
 			blockingQueueToReceiveE.add(e);
 			queueOfEvent.add(blockingQueueToReceiveE);
 		}
@@ -128,7 +131,7 @@ public class MessageBusImpl implements MessageBus {
 		// creating a Blocking Queue for the new microservice and saving it with it:
 		microservicesToQueues.put(m, new LinkedBlockingQueue<>());
 		// creating a new empty List for the queues that include the blocking queue of the microservice m
-		microservicesToTypeQueues.put(m, new LinkedList<>());
+		microservicesToSubscribedTypes.put(m, new LinkedList<>());
 	}
 
 	@Override
@@ -137,14 +140,16 @@ public class MessageBusImpl implements MessageBus {
 		if (isRegistered(m)) {
 			// first removing the BlockingQueue of m from all the queues of types it was in:
 			BlockingQueue<Message> blockingQueueOfM = microservicesToQueues.get(m);
-			List<Queue<BlockingQueue<Message>>> listOfQueuesWithBlockingQueueOfM = microservicesToTypeQueues.get(m);
-			for (Queue<BlockingQueue<Message>> queueOfQueues : listOfQueuesWithBlockingQueueOfM) {
-				synchronized (queueOfTypeRemoveLock) {
-					queueOfQueues.remove(blockingQueueOfM);
+			List<Class<? extends Message>> subscribedTypes = microservicesToSubscribedTypes.get(m);
+			Queue<BlockingQueue<Message>> currentTypeQueue;
+			for (Class<? extends Message> subscribedType: subscribedTypes) {
+				currentTypeQueue = typesToQueues.get(subscribedType);
+				synchronized (messageTypesLocks.get(subscribedType)) {
+					currentTypeQueue.remove(blockingQueueOfM);
 				}
 			}
 			// now removing m and its content from the map fields:
-			microservicesToTypeQueues.remove(m);
+			microservicesToSubscribedTypes.remove(m);
 			microservicesToQueues.remove(m);
 		}
 
