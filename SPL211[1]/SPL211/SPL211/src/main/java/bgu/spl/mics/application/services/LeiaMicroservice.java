@@ -38,6 +38,8 @@ public class LeiaMicroservice extends MicroService {
             // System.out.println("About to terminate");
             Diary.getInstance().stampLeiaTerminate();
             terminate();
+            //Informing the diary of the termination.
+            Diary.getInstance().stampLeiaTerminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
 

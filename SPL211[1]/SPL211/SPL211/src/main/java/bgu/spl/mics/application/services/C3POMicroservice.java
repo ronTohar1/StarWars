@@ -35,6 +35,7 @@ public class C3POMicroservice extends MicroService {
             try {
                 ewoks.acquire(attack.getSerials());
                 Thread.sleep(attack.getDuration());
+                //Informing the diary of the changes.
                 diary.incrementTotalAttacks();
                 diary.stampC3POFinish();
                 messageBus.complete(attackEvent, true);
@@ -51,6 +52,8 @@ public class C3POMicroservice extends MicroService {
         Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
             Diary.getInstance().stampC3POTerminate();
             terminate();
+            //Informing the diary of the termination.
+            Diary.getInstance().stampC3POTerminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
     }

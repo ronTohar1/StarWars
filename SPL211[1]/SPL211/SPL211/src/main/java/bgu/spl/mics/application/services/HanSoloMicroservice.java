@@ -37,6 +37,7 @@ public class HanSoloMicroservice extends MicroService {
             try {
                 ewoks.acquire(attack.getSerials());
                 Thread.sleep(attack.getDuration());
+                //Informing the diary of the changes.
                 diary.incrementTotalAttacks();
                 diary.stampHanSoloFinish();
                 messageBus.complete(attackEvent, true); // TODO: should it be like this?
@@ -46,7 +47,6 @@ public class HanSoloMicroservice extends MicroService {
             }
             ewoks.release(attack.getSerials()); // TODO: remove the exception from release of Ewok to prevent problems here
             // TODO: And check if it is okay to do it here, and the stamps an all before. I don't think so
-
         };
         subscribeEvent(AttackEvent.class,c);
 
@@ -54,6 +54,8 @@ public class HanSoloMicroservice extends MicroService {
         Callback<TerminationBroadcast> terminationCallback=(f)->{
             Diary.getInstance().stampHanSoloTerminate();
             terminate();
+            //Informing the diary of the termination.
+            Diary.getInstance().stampHanSoloTerminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
     }
