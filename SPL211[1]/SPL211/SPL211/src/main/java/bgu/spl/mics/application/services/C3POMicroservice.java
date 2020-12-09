@@ -1,8 +1,6 @@
 package bgu.spl.mics.application.services;
 
 import bgu.spl.mics.Callback;
-import bgu.spl.mics.MessageBus;
-import bgu.spl.mics.MessageBusImpl;
 import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.messages.AttackEvent;
 import bgu.spl.mics.application.messages.TerminationBroadcast;
@@ -29,7 +27,6 @@ public class C3POMicroservice extends MicroService {
     protected void initialize() {
         Callback<AttackEvent> attackEventCallback= (attackEvent)->{
             Attack attack=attackEvent.getAttack();
-            MessageBus messageBus = MessageBusImpl.getInstance();
             Diary diary = Diary.getInstance();
             Ewoks ewoks = Ewoks.getInstance();
             try {
@@ -38,10 +35,10 @@ public class C3POMicroservice extends MicroService {
                 //Informing the diary of the changes.
                 diary.incrementTotalAttacks();
                 diary.stampC3POFinish();
-                messageBus.complete(attackEvent, true);
+                complete(attackEvent, true);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-                messageBus.complete(attackEvent, false);
+                complete(attackEvent, false);
             }
             ewoks.release(attack.getSerials());
             // TODO: And check if it is okay to do it here, and the stamps an all before. I don't think so
