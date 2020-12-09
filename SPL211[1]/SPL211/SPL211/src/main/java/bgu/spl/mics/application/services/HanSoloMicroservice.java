@@ -52,10 +52,9 @@ public class HanSoloMicroservice extends MicroService {
 
         //Termination event registration
         Callback<TerminationBroadcast> terminationCallback=(f)->{
-            Diary.getInstance().stampHanSoloTerminate();
-            terminate();
             //Informing the diary of the termination.
             Diary.getInstance().stampHanSoloTerminate();
+            terminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
     }

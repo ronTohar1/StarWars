@@ -48,8 +48,8 @@ public class Ewoks {
     public void acquire(List<Integer> ewoksSerialNumbers) throws InterruptedException{ // TODO: is it ok to use this. Check their version
         Collections.sort(ewoksSerialNumbers); // to avoid deadlocks
         for (int ewokSerialNumber : ewoksSerialNumbers){
-            // System.out.println("Acquiring Ewok of serial number number: " + ewokSerialNumber + " by thread number: "
-            //         + Thread.currentThread().getName());
+             System.out.println("Acquiring Ewok of serial number number: " + ewokSerialNumber + " by thread number: "
+                     + Thread.currentThread().getName());
             getEwokOfSerialNumber(ewokSerialNumber).acquire();
         }
     }
@@ -60,8 +60,8 @@ public class Ewoks {
      */
     public void release(List<Integer> ewoksSerialNumbers){
         for (int ewokSerialNumber : ewoksSerialNumbers){
-            // System.out.println("Realising Ewok of serial number number: " + ewokSerialNumber + " by thread number: "
-            //         + Thread.currentThread().getName());
+             System.out.println("Realising Ewok of serial number number: " + ewokSerialNumber + " by thread number: "
+                     + Thread.currentThread().getName());
             getEwokOfSerialNumber(ewokSerialNumber).release();
         }
     }

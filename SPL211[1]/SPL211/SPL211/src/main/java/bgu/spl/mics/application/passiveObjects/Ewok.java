@@ -66,8 +66,8 @@ public class Ewok {
      * @throws IllegalStateException if the Ewok is already available
      */
     public synchronized void release() {
-    	if (isAvailable())
-    	    throw new IllegalStateException("Can't release an available Ewok");
+//    	if (isAvailable())
+//    	    throw new IllegalStateException("Can't release an available Ewok");
     	available = true;
     	notify(); // waiting only for acquiring the Ewok TODO: is okay?
     }

@@ -32,23 +32,21 @@ public class R2D2Microservice extends MicroService {
             MessageBus messageBus = MessageBusImpl.getInstance();
             try {
                 Thread.sleep(sleepDuration);
+                //Informing the diary of the changes
                 Diary.getInstance().stampR2D2Deactivate();
                 messageBus.complete(DeactivationEvent, true); // TODO: should it be like this?
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 messageBus.complete(DeactivationEvent, false); // TODO: should it be like this?
             }
-            //Informing the diary of the changes
-            Diary.getInstance().stampR2D2Deactivate();
         };
         subscribeEvent(DeactivationEvent.class,deactivationEventCallback);
 
         //Termination event registration
         Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
-            Diary.getInstance().stampR2D2Terminate();
-            terminate();
             //Informing the diary of the termination.
             Diary.getInstance().stampR2D2Terminate();
+            terminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
 

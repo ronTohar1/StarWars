@@ -9,7 +9,7 @@ public class Input {
     public int getEwoks() {
         return Ewoks;
     }
-//    public void setEwoks(int ewoks) {
+//    public void setEwoks(int ewoks) { // TODO: check if necessary
 //        Ewoks = ewoks;
 //    }
     public int getLando() {

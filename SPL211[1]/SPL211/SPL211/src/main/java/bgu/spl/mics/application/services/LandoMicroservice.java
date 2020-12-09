@@ -31,17 +31,14 @@ public class LandoMicroservice  extends MicroService {
                 e.printStackTrace();
                 messageBus.complete(bombDestroyerEvent, false); // TODO: should it be like this?
             }
-            //Informing the diary of the changes
-            Diary.getInstance().stampLandoTerminate();
         };
         subscribeEvent(BombDestroyerEvent.class,bombDestroyerEventCallback);
 
         //Termination event registration
         Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
+            //Informing the diary of the changes
             Diary.getInstance().stampLandoTerminate();
             terminate();
-            //Informing the diary of the termination.
-            Diary.getInstance().stampLandoTerminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
        

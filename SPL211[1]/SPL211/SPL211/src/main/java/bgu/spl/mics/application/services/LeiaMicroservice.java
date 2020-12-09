@@ -21,13 +21,11 @@ import bgu.spl.mics.application.passiveObjects.Diary;
 public class LeiaMicroservice extends MicroService {
 	private Attack[] attacks;
 	private Future<Boolean>[] attackFutures;
-	private int futuresCounter;
-	
+
     public LeiaMicroservice(Attack[] attacks) {
         super("Leia");
 		this.attacks = attacks;
 		attackFutures= new Future[attacks.length];
-		futuresCounter=0;
     }
 
     @Override
@@ -35,11 +33,10 @@ public class LeiaMicroservice extends MicroService {
 
         //Subscribing to Termination Broadcast.
         Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
-            // System.out.println("About to terminate");
-            Diary.getInstance().stampLeiaTerminate();
-            terminate();
+            System.out.println("About to terminate");
             //Informing the diary of the termination.
             Diary.getInstance().stampLeiaTerminate();
+            terminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
 
@@ -51,16 +48,16 @@ public class LeiaMicroservice extends MicroService {
             e.printStackTrace();
         }
 
-        // System.out.println("Executing attacks:");
+        System.out.println("Executing attacks:");
         //Executing attacks
         executeAttackEvents();
-        // System.out.println("Destroying shields:");
+        System.out.println("Destroying shields:");
         //After executing attacks, destroying shields.
         destroyShieldEvent();
-        // System.out.println("Executing bombing:");
+        System.out.println("Executing bombing:");
         //After destroying shield, executing bombing event.
         bombEvent();
-        // System.out.println("Sending termination signal:");
+        System.out.println("Sending termination signal:");
         //After executing the bomb event, sending the termination broadcast
         sendTerminationSignal();
     }
@@ -71,16 +68,15 @@ public class LeiaMicroservice extends MicroService {
      * After
      */
     private void executeAttackEvents(){
-        for (Attack a : attacks) {
-            Future<Boolean> attackFuture = this.sendEvent(new AttackEvent(a));
-            attackFutures[futuresCounter]=attackFuture;
-            futuresCounter++; // TODO: should it be like this?
+        for (int attackIndex = 0; attackIndex < attacks.length; attackIndex++){
+            Future<Boolean> attackFuture = this.sendEvent(new AttackEvent(attacks[attackIndex]));
+            attackFutures[attackIndex] = attackFuture;
         }
         for(int i=0;i<attackFutures.length;i++){
             Boolean futureIsResolved=false;
             while(!futureIsResolved) {
                 futureIsResolved = attackFutures[i].get();
-                // System.out.println("future resolved: " + futureIsResolved);
+                System.out.println("future in index resolved: " + futureIsResolved);
                 // TODO: 08/12/2020  check if need to send again.
                 //Re-sending an attack
                 if(!futureIsResolved)

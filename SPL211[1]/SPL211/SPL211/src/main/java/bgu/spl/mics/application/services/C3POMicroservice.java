@@ -50,10 +50,9 @@ public class C3POMicroservice extends MicroService {
 
         //Termination event registration
         Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
-            Diary.getInstance().stampC3POTerminate();
-            terminate();
             //Informing the diary of the termination.
             Diary.getInstance().stampC3POTerminate();
+            terminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
     }
