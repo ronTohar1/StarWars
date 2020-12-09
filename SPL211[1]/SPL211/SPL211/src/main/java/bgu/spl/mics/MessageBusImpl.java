@@ -108,21 +108,22 @@ public class MessageBusImpl implements MessageBus {
 		// TODO: 06/12/2020  should we check if the queueOfEvent==null?? (we get null if no one subscribed to this event. why not check it?)
 		// queues of the microservices registered to Events of the type of e
 
+		Future<T> futureOfE;
 		if (!typesToQueues.containsKey(eventType)) // doesn't need to be synchronized because the queues of events are never deleted (even in empty)
 			return null;
 		Queue<BlockingQueue<Message>> queueOfEvent = typesToQueues.get(eventType);
 		synchronized (messageTypesLocks.get(eventType)) {
 			if (queueOfEvent.isEmpty()) // if no microservice subscribed to the type of e
 				return null;
+			// creating a Future instance for e, saving it with e and returning it:
+			futureOfE = new Future<>();
+			eventsToFutures.put(e, futureOfE);
 			// removing the blocking queue from the beginning of the queue. adding e to it and then returning it to the end
 			// of the queue of Event:
 			BlockingQueue<Message> blockingQueueToReceiveE = queueOfEvent.remove();
 			blockingQueueToReceiveE.add(e);
 			queueOfEvent.add(blockingQueueToReceiveE);
 		}
-		// creating a Future instance for e, saving it with e and returning it:
-		Future<T> futureOfE = new Future<>();
-		eventsToFutures.put(e, futureOfE);
         return futureOfE;
 	}
 
