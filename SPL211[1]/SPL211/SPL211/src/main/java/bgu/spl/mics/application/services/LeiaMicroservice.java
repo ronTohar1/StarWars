@@ -67,21 +67,26 @@ public class LeiaMicroservice extends MicroService {
      * Sending each attack to a {@Link MicroService} to handle it.
      * After
      */
-    private void executeAttackEvents(){
-        for (int attackIndex = 0; attackIndex < attacks.length; attackIndex++){
+    private void executeAttackEvents() {
+        for (int attackIndex = 0; attackIndex < attacks.length; attackIndex++) {
             Future<Boolean> attackFuture = this.sendEvent(new AttackEvent(attacks[attackIndex]));
             attackFutures[attackIndex] = attackFuture;
         }
-        for(int i=0;i<attackFutures.length;i++){
-            Boolean futureIsResolved=false;
-            while(!futureIsResolved) {
-                futureIsResolved = attackFutures[i].get();
-                System.out.println("future in index resolved: " + futureIsResolved);
+        for (int i = 0; i < attackFutures.length; i++) {
+            Boolean futureIsResolved = false;
+            while (attackFutures[i] == null || !attackFutures[i].get()){
                 // TODO: 08/12/2020  check if need to send again.
                 //Re-sending an attack
-                if(!futureIsResolved)
-                    attackFutures[i] = sendEvent(new AttackEvent(attacks[i]));
+                attackFutures[i] = sendEvent(new AttackEvent(attacks[i]));
             }
+//            while (!futureIsResolved) {
+//                futureIsResolved = attackFutures[i] != null && attackFutures[i].get();
+//                System.out.println("future in index resolved: " + futureIsResolved);
+//                // TODO: 08/12/2020  check if need to send again.
+//                //Re-sending an attack
+//                if (!futureIsResolved)
+//                    attackFutures[i] = sendEvent(new AttackEvent(attacks[i]));
+//            }
         }
     }
 
@@ -93,25 +98,36 @@ public class LeiaMicroservice extends MicroService {
     private void destroyShieldEvent(){
         //Deactivating the shield.
         Future<Boolean> deactivationFuture= this.sendEvent(new DeactivationEvent());
-        Boolean deactivated=false;
-        //Re-sending the event if it wasn't completed successfully.
-        while(!deactivated){
-            deactivated=deactivationFuture.get();
-            if(!deactivated)
-                deactivationFuture=sendEvent(new DeactivationEvent());
+
+        // Re-sending the event until it is completed successfully:
+        while(deactivationFuture == null || !deactivationFuture.get()) {
+            deactivationFuture = sendEvent(new DeactivationEvent());
         }
+
+//        Boolean deactivated = false;
+//        // Re-sending the event if it wasn't completed successfully.
+//        while(!deactivated){
+//            deactivated=deactivationFuture.get();
+//            if(!deactivated)
+//                deactivationFuture=sendEvent(new DeactivationEvent());
+//        }
     }
 
-    private void bombEvent(){
+    private void bombEvent() {
         //After deactivating the shield-> sending a broadcast to bomb the star
         //Bombing the star.
-        Future<Boolean> bombDestructionFuture= sendEvent(new BombDestroyerEvent());
-        Boolean bombLanded=false;
-        //Re-sending the event if it wasn't completed successfully.
-        while(!bombLanded){
-            bombLanded=bombDestructionFuture.get();
-            if(!bombLanded)
-                bombDestructionFuture=sendEvent(new BombDestroyerEvent());
+        Future<Boolean> bombDestructionFuture = sendEvent(new BombDestroyerEvent());
+        //Re-sending the event until it is completed successfully:
+        while (bombDestructionFuture == null || !bombDestructionFuture.get()) {
+            bombDestructionFuture = sendEvent(new BombDestroyerEvent());
         }
+
+//        Boolean bombLanded = false;
+//        //Re-sending the event if it wasn't completed successfully.
+//        while (!bombLanded) {
+//            bombLanded = bombDestructionFuture.get();
+//            if (!bombLanded)
+//                bombDestructionFuture = sendEvent(new BombDestroyerEvent());
+//        }
     }
 }
