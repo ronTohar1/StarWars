@@ -8,7 +8,6 @@ package bgu.spl.mics.application.passiveObjects;
  */
 
 public class Ewok {
-    // this class is not threaded safe, because TODO: complete why
 
 	int serialNumber;
 	boolean available;
@@ -33,50 +32,32 @@ public class Ewok {
 	    this.available = available;
     }
 
-//    /**
-//     * Acquires an Ewok if available, otherwise throws an exception
-//     * @throws IllegalStateException if the Ewok is already unavailable
-//     */
-//    public void acquire() {
-//		if (!isAvailable())
-//		    throw new IllegalStateException("Can't acquire an unavailable Ewok");
-//		available = false;
-//    }
-
     /**
      * This method acquires the Ewok. If the Ewok is not available, it waits until it is
      * This method is blocking
      * @throws InterruptedException in case of an interruption
      */
     public synchronized void acquire() throws InterruptedException{
-        try{
-            while (!isAvailable()){
-                wait();
-            }
-            // the ewok is available now:
-            this.available = false; // acquiring the Ewok. No need to notify TODO: is it sure?
+        while (!isAvailable()){
+            wait();
         }
-        catch (InterruptedException interruptedException){ // TODO: should we not catch at all?
-            throw new InterruptedException();
-        }
+        // the ewok is available now:
+        this.available = false; // acquiring the Ewok. No need to notify, because waiting for acquiring only
     }
 
     /**
-     * release an Ewok if unavailable, otherwise throws an exception
-     * @throws IllegalStateException if the Ewok is already available
+     * This method release the Ewok if unavailable, otherwise does nothing
      */
     public synchronized void release() {
-//    	if (isAvailable())
-//    	    throw new IllegalStateException("Can't release an available Ewok");
     	available = true;
-    	notify(); // waiting only for acquiring the Ewok TODO: is okay?
+    	notify(); // waiting only for acquiring the Ewok, so no need to notify all
     }
 
     /**
      * this method checks if the Ewok is available
      * @return true if the Ewok is available, or false otherwise
      */
-    public synchronized boolean isAvailable(){ // TODO: should it be synchronized?
+    public synchronized boolean isAvailable(){
         return available;
     }
 }
