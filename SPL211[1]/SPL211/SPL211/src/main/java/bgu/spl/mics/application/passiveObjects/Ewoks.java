@@ -15,12 +15,19 @@ import java.util.List;
  */
 public class Ewoks {
 
-    private static Ewoks instance = new Ewoks(); // TODO: change to better threaded safe singleton
+    private static class SingletonHolder {
+        private static Ewoks instance = new Ewoks();
+    }
+
 
     private Ewok[] ewoks;
 
     private Ewoks(){
         ewoks = null;
+    }
+
+    public static Ewoks getInstance(){
+        return SingletonHolder.instance;
     }
 
     /**
@@ -33,10 +40,6 @@ public class Ewoks {
         instance.ewoks = new Ewok[numberOfEwoks];
         for (int index = 0; index < instance.ewoks.length; index++)
             instance.ewoks[index] = new Ewok(toSerialNumber(index)); // Creates a non available Ewok
-    }
-
-    public static Ewoks getInstance(){
-        return instance;
     }
 
     /**

@@ -11,7 +11,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Diary {
 
-    private static Diary instance = new Diary(); // TODO: threaded safe singleton
+    private static class SingletonHolder {
+        private static Diary instance = new Diary();
+    }
 
     private AtomicInteger totalAttacks;
     private long HanSoloFinish;
@@ -30,7 +32,7 @@ public class Diary {
     }
 
     public static Diary getInstance(){
-        return instance; // TODO: safe threaded singleton
+        return SingletonHolder.instance;
     }
 
     public void incrementTotalAttacks(){

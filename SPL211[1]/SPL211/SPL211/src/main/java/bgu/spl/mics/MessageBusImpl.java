@@ -9,8 +9,12 @@ import java.util.concurrent.*;
  * Only private fields and methods can be added to this class.
  */
 public class MessageBusImpl implements MessageBus {
-	
-	private static MessageBusImpl instance = new MessageBusImpl(); // initializing the instance now to make the
+
+	private static class SingletonHolder {
+		private static MessageBusImpl instance = new MessageBusImpl();
+	}
+
+	// private static MessageBusImpl instance = new MessageBusImpl(); // initializing the instance now to make the
 	// singleton threaded safe
 
 	private Map<Class<? extends Message>, Queue<BlockingQueue<Message>>> typesToQueues; // this map will concurrent an
@@ -39,7 +43,7 @@ public class MessageBusImpl implements MessageBus {
 	 * @return The instance of the MessageBusImpl singleton
 	 */
 	public static MessageBusImpl getInstance(){
-		return instance; // the instance is initialized when the field is defined
+		return SingletonHolder.instance; // the instance is initialized when the field is defined
 	}
 
 	@Override
