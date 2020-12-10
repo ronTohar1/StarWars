@@ -15,57 +15,62 @@ import java.util.List;
  */
 public class Ewoks {
 
+    // for the threaded safe singleton
     private static class SingletonHolder {
         private static Ewoks instance = new Ewoks();
     }
 
-
     private Ewok[] ewoks;
 
+    /**
+     * A constructor that doesn't initialize the ewoks yet (the initialization occurs in the static initialize method)
+     * private for the singleton design pattern
+     */
     private Ewoks(){
-        ewoks = null;
-    }
-
-    public static Ewoks getInstance(){
-        return SingletonHolder.instance;
+        ewoks = null; // initializing the array in the initialize static method
     }
 
     /**
-     * This method is not threaded safe, and should be called once. It initializes this class with the
+     * Gets the singleton Ewoks instance
+     * @return the instance of the singleton Ewoks
+     */
+    public static Ewoks getInstance(){
+        return SingletonHolder.instance; // according to the threaded safe singleton implementation
+    }
+
+    /**
+     * This method is not threaded safe, and should be called once. It initializes the singleton instance with the
      * given number of ewoks
      * @param numberOfEwoks the number of Ewoks to initialize the class with
      */
     public static void initialize(int numberOfEwoks){ // TODO: is it okay to use this
         Ewoks instance = getInstance();
         instance.ewoks = new Ewok[numberOfEwoks];
+        // initializing each Ewok:
         for (int index = 0; index < instance.ewoks.length; index++)
             instance.ewoks[index] = new Ewok(toSerialNumber(index)); // Creates a non available Ewok
     }
 
     /**
      * Acquires the ewoks in the given serial numbers. This method is blocking- if the required ewoks aren't available,
-     * it waits untill they are
+     * it waits until they are
      * @param ewoksSerialNumbers the serial numbers of the ewoks to acquire
      * @throws InterruptedException in case of an interruption
      */
-    public void acquire(List<Integer> ewoksSerialNumbers) throws InterruptedException{ // TODO: is it ok to use this. Check their version
+    public void acquire(List<Integer> ewoksSerialNumbers) throws InterruptedException{
         Collections.sort(ewoksSerialNumbers); // to avoid deadlocks
         for (int ewokSerialNumber : ewoksSerialNumbers){
-             System.out.println("Acquiring Ewok of serial number number: " + ewokSerialNumber + " by thread number: "
-                     + Thread.currentThread().getName());
-            getEwokOfSerialNumber(ewokSerialNumber).acquire();
+            getEwokOfSerialNumber(ewokSerialNumber).acquire(); // if not available, waits until it is
         }
     }
 
     /**
-     * Releases the ewoks in the given serial numbers
+     * Releases the unavailable ewoks in the given serial numbers
      * @param ewoksSerialNumbers A list of the serial numbers of the ewoks to release
      */
     public void release(List<Integer> ewoksSerialNumbers){
         for (int ewokSerialNumber : ewoksSerialNumbers){
-             System.out.println("Realising Ewok of serial number number: " + ewokSerialNumber + " by thread number: "
-                     + Thread.currentThread().getName());
-            getEwokOfSerialNumber(ewokSerialNumber).release();
+            getEwokOfSerialNumber(ewokSerialNumber).release(); // releases if not already available
         }
     }
 

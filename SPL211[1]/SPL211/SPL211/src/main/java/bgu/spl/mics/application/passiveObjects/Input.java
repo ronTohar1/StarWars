@@ -6,28 +6,36 @@ public class Input {
     int Lando;
     int Ewoks;
 
+    /**
+     * A getter for the number of ewoks
+     * @return the number of ewoks
+     */
     public int getEwoks() {
         return Ewoks;
     }
-//    public void setEwoks(int ewoks) { // TODO: check if necessary
-//        Ewoks = ewoks;
-//    }
+
+    /**
+     * A getter for the time in milliseconds that takes Lando to bomb the star destroyer
+     * @return the time in milliseconds that takes Lando to bomb the star destroyer
+     */
     public int getLando() {
         return Lando;
     }
-//    public void setLando(int lando) {
-//        Lando = lando;
-//    }
+
+    /**
+     * A getter for the time in milliseconds that takes R2D2 to deactivate the shield
+     * @return the time in milliseconds that takes R2D2 to deactivate the shield
+     */
     public int getR2D2() {
         return R2D2;
     }
-//    public void setR2D2(int r2d2) {
-//        R2D2 = r2d2;
-//    }
+
+    /**
+     * A getter for the Attacks to execute
+     * @return An array of the Attacks to execute
+     */
     public Attack[] getAttacks() {
         return attacks;
     }
-//    public void setAttacks(Attack[] attacks) {
-//        this.attacks = attacks;
-//    }
+
 }
