@@ -27,33 +27,60 @@ public class HanSoloMicroservice extends MicroService {
 
     @Override
     protected void initialize() {
-        Callback<AttackEvent> c= (attackEvent)->{ // TODO: maybe create callback in a different, private, method
-            Attack attack=attackEvent.getAttack();
-            Diary diary = Diary.getInstance();
-            Ewoks ewoks = Ewoks.getInstance();
-            try {
-                ewoks.acquire(attack.getSerials());
-                Thread.sleep(attack.getDuration());
-                //Informing the diary of the changes.
-                diary.incrementTotalAttacks();
-                diary.stampHanSoloFinish();
-                complete(attackEvent, true); // TODO: should it be like this?
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                complete(attackEvent, false); // TODO: should it be like this?
-            }
-            ewoks.release(attack.getSerials()); // TODO: remove the exception from release of Ewok to prevent problems here
-            // TODO: And check if it is okay to do it here, and the stamps an all before. I don't think so
-        };
-        subscribeEvent(AttackEvent.class,c);
+        subscribeAttackEvent();
+        subscribeTermination();
+    }
 
-        //Termination event registration
+
+    /**
+     * Subscribing to the {@link TerminationBroadcast}.
+     * When receiving this broadcast-> calling the current {@link MicroService}
+     * termination method and informing the {@link Diary} of the termination.
+     */
+    private void subscribeTermination(){
+        //Termination event subscription
         Callback<TerminationBroadcast> terminationCallback=(f)->{
             //Informing the diary of the termination.
             Diary.getInstance().stampHanSoloTerminate();
             terminate();
         };
         subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
+    }
+
+    /**
+     * Subscribing to the {@link AttackEvent}.
+     * When receiving this event-> calling the {@link Callback}
+     * associated with this event.
+     * Informing the {@link Diary} of the event completion.
+     *
+     * Whenever an {@link AttackEvent} is called, the current {@link MicroService}
+     * tries to acquire the resources that are needed, sleeps to simulate attacking,
+     * and finally releasing the resources.
+     */
+    private void subscribeAttackEvent(){
+
+        Callback<AttackEvent> c= (attackEvent)->{
+            Attack attack=attackEvent.getAttack();
+            Diary diary = Diary.getInstance();
+            Ewoks ewoks = Ewoks.getInstance();
+            try {
+                //acquiring the required resources for the attack.
+                ewoks.acquire(attack.getSerials());
+                //simultaing the attack by sleeping.
+                Thread.sleep(attack.getDuration());
+                //Informing the diary of the changes.
+                diary.incrementTotalAttacks();
+                diary.stampHanSoloFinish();
+                //Event completed:
+                complete(attackEvent, true);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                complete(attackEvent, false);
+            }
+            //Releasing back the resources after finishing attacking.
+            ewoks.release(attack.getSerials());
+        };
+        subscribeEvent(AttackEvent.class,c);
     }
 
 

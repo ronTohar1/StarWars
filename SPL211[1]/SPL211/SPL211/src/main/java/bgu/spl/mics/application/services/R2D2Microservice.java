@@ -26,6 +26,35 @@ public class R2D2Microservice extends MicroService {
 
     @Override
     protected void initialize() {
+
+        //Subscribing to the DeactivationEvent and the Termination broadcast.
+        subscribeDeactivationEvent();
+        subscribeTermination();
+
+    }
+
+    /**
+     * Subscribing to the {@link TerminationBroadcast}.
+     * When receiving this broadcast-> calling the current {@link MicroService}
+     * termination method and informing the {@link Diary} of the termination.
+     */
+    private void subscribeTermination(){
+        //Termination event subscription
+        Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
+            //Informing the diary of the termination.
+            Diary.getInstance().stampR2D2Terminate();
+            terminate();
+        };
+        subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
+    }
+
+    /**
+     * Subscribing to the {@link DeactivationEvent}.
+     * When receiving this event-> calling the {@link Callback}
+     * associated with this event.
+     * Informing the {@link Diary} of the event completion.
+     */
+    private void subscribeDeactivationEvent(){
         Callback<DeactivationEvent> deactivationEventCallback=(DeactivationEvent)->{
             try {
                 Thread.sleep(sleepDuration);
@@ -38,14 +67,5 @@ public class R2D2Microservice extends MicroService {
             }
         };
         subscribeEvent(DeactivationEvent.class,deactivationEventCallback);
-
-        //Termination event registration
-        Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
-            //Informing the diary of the termination.
-            Diary.getInstance().stampR2D2Terminate();
-            terminate();
-        };
-        subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
-
     }
 }

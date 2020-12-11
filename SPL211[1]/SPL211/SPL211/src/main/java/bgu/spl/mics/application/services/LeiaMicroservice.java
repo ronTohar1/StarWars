@@ -31,14 +31,8 @@ public class LeiaMicroservice extends MicroService {
     @Override
     protected void initialize() {
 
-        //Subscribing to Termination Broadcast.
-        Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
-            System.out.println("About to terminate");
-            //Informing the diary of the termination.
-            Diary.getInstance().stampLeiaTerminate();
-            terminate();
-        };
-        subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
+        //Subscribing to the termination broadcast.
+        subscribeTermination();
 
         //Sleeping so everyone can subscribe.
         try {
@@ -48,23 +42,34 @@ public class LeiaMicroservice extends MicroService {
             e.printStackTrace();
         }
 
-        System.out.println("Executing attacks:");
         //Executing attacks
         executeAttackEvents();
-        System.out.println("Destroying shields:");
         //After executing attacks, destroying shields.
         destroyShieldEvent();
-        System.out.println("Executing bombing:");
         //After destroying shield, executing bombing event.
         bombEvent();
-        System.out.println("Sending termination signal:");
         //After executing the bomb event, sending the termination broadcast
         sendTerminationSignal();
     }
 
     /**
+     * Subscribing to the {@link TerminationBroadcast}.
+     * When receiving this broadcast-> calling the current {@link MicroService}
+     * termination method and informing the {@link Diary} of the termination.
+     */
+    private void subscribeTermination(){
+        //Subscribing to Termination Broadcast.
+        Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
+            //Informing the diary of the termination.
+            Diary.getInstance().stampLeiaTerminate();
+            terminate();
+        };
+        subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
+    }
+
+    /**
      * Executing all of the attack events.
-     * Sending each attack to a {@Link MicroService} to handle it.
+     * Sending each attack to a {@link MicroService} to handle it.
      * After
      */
     private void executeAttackEvents() {
@@ -79,22 +84,25 @@ public class LeiaMicroservice extends MicroService {
                 //Re-sending an attack
                 attackFutures[i] = sendEvent(new AttackEvent(attacks[i]));
             }
-//            while (!futureIsResolved) {
-//                futureIsResolved = attackFutures[i] != null && attackFutures[i].get();
-//                System.out.println("future in index resolved: " + futureIsResolved);
-//                // TODO: 08/12/2020  check if need to send again.
-//                //Re-sending an attack
-//                if (!futureIsResolved)
-//                    attackFutures[i] = sendEvent(new AttackEvent(attacks[i]));
-//            }
         }
     }
 
+    /**
+     * Sending a termination broadcast to all {@link MicroService}
+     * who are subscribed.
+     */
     private void sendTerminationSignal(){
         //Terminating every thread.
         sendBroadcast(new TerminationBroadcast());
     }
 
+    /**
+     * Sending the {@link DeactivationEvent} to a {@link MicroService}
+     * who is subscribed (Round Robing Manner).
+     * Waiting for the event to succeed, meaning for the future
+     * of the event to return True.
+     * (If the future returns false, we are sending the event again untill it is executed successfully)s
+     */
     private void destroyShieldEvent(){
         //Deactivating the shield.
         Future<Boolean> deactivationFuture= this.sendEvent(new DeactivationEvent());
@@ -103,16 +111,15 @@ public class LeiaMicroservice extends MicroService {
         while(deactivationFuture == null || !deactivationFuture.get()) {
             deactivationFuture = sendEvent(new DeactivationEvent());
         }
-
-//        Boolean deactivated = false;
-//        // Re-sending the event if it wasn't completed successfully.
-//        while(!deactivated){
-//            deactivated=deactivationFuture.get();
-//            if(!deactivated)
-//                deactivationFuture=sendEvent(new DeactivationEvent());
-//        }
     }
 
+    /**
+     * Sending the {@link BombDestroyerEvent} to a {@link MicroService}
+     * who is subscribed (Round Robing Manner).
+     * Waiting for the event to succeed, meaning for the future
+     * of the event to return True.
+     * (If the future returns false, we are sending the event again untill it is executed successfully)
+     */
     private void bombEvent() {
         //After deactivating the shield-> sending a broadcast to bomb the star
         //Bombing the star.
@@ -121,13 +128,5 @@ public class LeiaMicroservice extends MicroService {
         while (bombDestructionFuture == null || !bombDestructionFuture.get()) {
             bombDestructionFuture = sendEvent(new BombDestroyerEvent());
         }
-
-//        Boolean bombLanded = false;
-//        //Re-sending the event if it wasn't completed successfully.
-//        while (!bombLanded) {
-//            bombLanded = bombDestructionFuture.get();
-//            if (!bombLanded)
-//                bombDestructionFuture = sendEvent(new BombDestroyerEvent());
-//        }
     }
 }
