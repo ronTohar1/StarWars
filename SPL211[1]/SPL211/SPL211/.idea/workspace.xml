@@ -22,7 +22,6 @@
     <list default="true" id="cbccade4-06c3-4622-a6d8-010992859a67" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output.json" beforeDir="false" afterPath="$PROJECT_DIR$/output.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/MessageBusImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/MessageBusImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +63,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MessageBusImplTest">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.application.Main" />
       <module name="SPL211" />
@@ -203,22 +202,22 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="446" y="47" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1607163752736" />
-    <state width="1237" height="167" key="GridCell.Tab.0.bottom" timestamp="1607697437802">
+    <state width="1237" height="167" key="GridCell.Tab.0.bottom" timestamp="1607699066288">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="167" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1607697437802" />
-    <state width="1237" height="167" key="GridCell.Tab.0.center" timestamp="1607697437802">
+    <state width="1237" height="167" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1607699066288" />
+    <state width="1237" height="167" key="GridCell.Tab.0.center" timestamp="1607699066287">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="167" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1607697437802" />
-    <state width="1237" height="167" key="GridCell.Tab.0.left" timestamp="1607697437802">
+    <state width="1237" height="167" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1607699066287" />
+    <state width="1237" height="167" key="GridCell.Tab.0.left" timestamp="1607699066287">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="167" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1607697437802" />
-    <state width="1237" height="167" key="GridCell.Tab.0.right" timestamp="1607697437802">
+    <state width="1237" height="167" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1607699066287" />
+    <state width="1237" height="167" key="GridCell.Tab.0.right" timestamp="1607699066287">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="167" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1607697437802" />
+    <state width="1237" height="167" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1607699066287" />
     <state width="1237" height="204" key="GridCell.Tab.1.bottom" timestamp="1607174155830">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
