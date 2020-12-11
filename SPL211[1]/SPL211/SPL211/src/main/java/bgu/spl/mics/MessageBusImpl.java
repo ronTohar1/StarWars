@@ -87,24 +87,30 @@ public class MessageBusImpl implements MessageBus {
 
 	@Override
 	public void sendBroadcast(Broadcast b) {
-		Queue<BlockingQueue<Message>> queueOfBroadcast = typesToQueues.get(b.getClass()); // the queue of the blocking
-		// queues of the microservices registered to Broadcasts of the type of b
-		// adding b to every blocking queue in the queue:
-		for (BlockingQueue<Message> queue : queueOfBroadcast){
-			queue.add(b);
+		Class<? extends Broadcast> broadcastType = b.getClass();
+		if (typesToQueues.containsKey(broadcastType)) { // doesn't need to be synchronized because the queues of events are never deleted (even if empty)
+			Queue<BlockingQueue<Message>> queueOfBroadcast = typesToQueues.get(broadcastType); // the queue of the blocking
+			// queues of the microservices registered to Broadcasts of the type of b
+			// adding b to every blocking queue in the queue:
+			for (BlockingQueue<Message> queue : queueOfBroadcast){
+				queue.add(b);
+			}
 		}
+		// else (meaning no one has subscribed to the type of b), ignoring the Broadcast
 	}
 
 
 	@Override
 	public <T> Future<T> sendEvent(Event<T> e) {
 		Class<? extends Event> eventType = e.getClass();
-		if (!typesToQueues.containsKey(eventType)) // doesn't need to be synchronized because the queues of events are never deleted (even in empty)
+		if (!typesToQueues.containsKey(eventType)) // doesn't need to be synchronized because the queues of events are never deleted (even if empty)
 			return null;
 
 		Future<T> futureOfE; // definition so will be known until the end of the method's scope
 		Queue<BlockingQueue<Message>> queueOfEvent = typesToQueues.get(eventType);
-		synchronized (queueOfEvent) { // using synchronized because might remove a subscriber's queue in unregister
+		// using synchronized because might remove a subscriber's queue in unregister, and because 2 events can be sent
+		// at the same time to one subscribed microservice:
+		synchronized (queueOfEvent) {
 			if (queueOfEvent.isEmpty()) // if no microservice is subscribed to the type of e
 				return null;
 			// creating a Future instance for e, saving it with e and returning it:
