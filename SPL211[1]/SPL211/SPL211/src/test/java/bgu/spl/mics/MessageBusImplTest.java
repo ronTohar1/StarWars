@@ -23,6 +23,8 @@ class MessageBusImplTest {
     // more fields to help test the MessageBusImpl:
     private MicroService microService1;
     private MicroService microService2;
+    //Added null to the AttackEvent Builder.
+    // TODO: 12/12/2020  Added null to the AttackEvent Builder.
     private final AttackEvent attackEvent = new AttackEvent(null);
     private final Class<AttackEvent> eventType = AttackEvent.class;
     private final Broadcast broadcast = new Broadcast() {};
@@ -100,6 +102,7 @@ class MessageBusImplTest {
     }
 
     @Test
+
     void testSendEventAndAwaitMessage() throws InterruptedException {
         // This test checks the sendEvent and awaitMessage methods, because they can't each be tested separately
         Message message = registerSubscribeToEventSendEventAndAwaitMessageReturnsMessage();

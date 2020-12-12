@@ -20,9 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac648896-9c64-4e4c-80f7-c334e76a7470" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/output.json" beforeDir="false" afterPath="$PROJECT_DIR$/output.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/LandoMicroservice.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/LandoMicroservice.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/MessageBusImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/MessageBusImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/application/passiveObjects/EwokTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/application/passiveObjects/EwokTest.java" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,7 +51,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -60,6 +62,9 @@
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ron Tohar\Desktop\StarWars\StarWars\SPL211[1]\SPL211\SPL211" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -74,7 +79,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.EwokTest (1)">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.application.Main" />
       <module name="spl211" />
@@ -85,6 +90,21 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EwokTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="spl211" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bgu.spl.mics.application.passiveObjects.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="bgu.spl.mics.application.passiveObjects" />
+      <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.application.passiveObjects.EwokTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -104,8 +124,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FutureTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SPL211" />
+    <configuration name="FutureTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="spl211" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="bgu.spl.mics.*" />
@@ -119,8 +139,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FutureTest.testGet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SPL211" />
+    <configuration name="MessageBusImplTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="spl211" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="bgu.spl.mics.*" />
@@ -128,9 +148,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="bgu.spl.mics" />
-      <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.FutureTest" />
-      <option name="METHOD_NAME" value="testGet" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.MessageBusImplTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -153,16 +172,18 @@
     <list>
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.EwokTest" />
-      <item itemvalue="JUnit.FutureTest" />
-      <item itemvalue="JUnit.FutureTest.testGet" />
       <item itemvalue="JUnit.MessageBusImplTest" />
+      <item itemvalue="JUnit.FutureTest (1)" />
+      <item itemvalue="JUnit.MessageBusImplTest (1)" />
+      <item itemvalue="JUnit.EwokTest (1)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.EwokTest (1)" />
+        <item itemvalue="JUnit.MessageBusImplTest (1)" />
+        <item itemvalue="JUnit.FutureTest (1)" />
         <item itemvalue="JUnit.MessageBusImplTest" />
         <item itemvalue="JUnit.EwokTest" />
-        <item itemvalue="JUnit.FutureTest" />
-        <item itemvalue="JUnit.FutureTest.testGet" />
       </list>
     </recent_temporary>
   </component>
@@ -171,7 +192,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="cbccade4-06c3-4622-a6d8-010992859a67" name="Default Changelist" comment="" />
+      <changelist id="ac648896-9c64-4e4c-80f7-c334e76a7470" name="Default Changelist" comment="" />
       <created>1606237108564</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />

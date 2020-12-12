@@ -18,18 +18,15 @@ class EwokTest {
     }
 
     @Test
-    void testAcquire() {
+    void testAcquire() throws InterruptedException {
+        //Added 'throws InterruptedException' to the method signature because we decided to make the acquire method blocking.
+
         // test acquire available Ewok:
-        // availableEwok.acquire();
+        availableEwok.acquire();
         assertFalse(availableEwok.isAvailable());
+
         // test acquire unavailable Ewok:
-        try{
-            unavailableEwok.acquire();
-            fail();
-        }
-        catch (Exception e){
-            assertFalse(unavailableEwok.isAvailable());
-        }
+        //Removed this test becuase we decided to make the acquire method blocking.
     }
 
     @Test
@@ -38,12 +35,6 @@ class EwokTest {
         unavailableEwok.release();
         assertTrue(unavailableEwok.isAvailable());
         // test release available Ewok:
-        try{
-            availableEwok.release();
-            fail();
-        }
-        catch (Exception e){
-            assertTrue(availableEwok.isAvailable());
-        }
+        //Removed this test because we decided that if the Ewok is available, the release method will do nothing instead of throwing an exception.
     }
 }
