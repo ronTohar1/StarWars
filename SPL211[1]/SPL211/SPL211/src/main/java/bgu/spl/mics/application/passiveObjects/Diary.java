@@ -115,4 +115,49 @@ public class Diary {
     private static long getTimeStampInMillis(){
         return System.currentTimeMillis();
     }
+
+    // TODO: 09/12/2020 delete get functions.
+    public long getC3POFinish() {
+        return C3POFinish;
+    }
+
+    public long getHanSoloFinish() {
+        return HanSoloFinish;
+    }
+
+    public long getC3POTerminate() {
+        return C3POTerminate;
+    }
+
+    public long getHanSoloTerminate() {
+        return HanSoloTerminate;
+    }
+
+    public AtomicInteger getTotalAttacks() {
+        return totalAttacks;
+    }
+
+    public long getLandoTerminate() {
+        return LandoTerminate;
+    }
+
+    public long getLeiaTerminate() {
+        return LeiaTerminate;
+    }
+
+    public long getR2D2Deactivate() {
+        return R2D2Deactivate;
+    }
+
+    public long getR2D2Terminate() {
+        return R2D2Terminate;
+    }
+
+    public void resetNumberAttacks() {
+        totalAttacks.set(0);
+    }
+
+    public AtomicInteger getNumberOfAttacks() {
+        return totalAttacks;
+    }
 }
