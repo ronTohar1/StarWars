@@ -20,9 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac648896-9c64-4e4c-80f7-c334e76a7470" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/MessageBusImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/MessageBusImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/application/passiveObjects/EwokTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/application/passiveObjects/EwokTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -180,8 +178,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.EwokTest (1)" />
-        <item itemvalue="JUnit.MessageBusImplTest (1)" />
         <item itemvalue="JUnit.FutureTest (1)" />
+        <item itemvalue="JUnit.MessageBusImplTest (1)" />
         <item itemvalue="JUnit.MessageBusImplTest" />
         <item itemvalue="JUnit.EwokTest" />
       </list>

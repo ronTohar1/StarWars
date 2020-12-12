@@ -23,9 +23,8 @@ class MessageBusImplTest {
     // more fields to help test the MessageBusImpl:
     private MicroService microService1;
     private MicroService microService2;
-    //Added null to the AttackEvent Builder.
-    // TODO: 12/12/2020  Added null to the AttackEvent Builder.
-    private final AttackEvent attackEvent = new AttackEvent(null);
+    private final AttackEvent attackEvent = new AttackEvent(null); //Only passing the attackEvent as a parameter, the null doesn't matter.
+    //Added null to the AttackEvent Builder argument because it doesn't have an empty constructor anymore (changed the constructor to receive an Attack object).
     private final Class<AttackEvent> eventType = AttackEvent.class;
     private final Broadcast broadcast = new Broadcast() {};
     private final Class<? extends Broadcast> broadcastType = broadcast.getClass();
