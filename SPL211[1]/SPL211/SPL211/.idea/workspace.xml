@@ -80,7 +80,7 @@
   <component name="RunManager" selected="JUnit.EwokTest (1)">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.application.Main" />
-      <module name="spl211" />
+      <module name="SPL211" />
       <option name="PROGRAM_PARAMETERS" value="input.json output.json" />
       <extension name="coverage">
         <pattern>
@@ -216,39 +216,42 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607629144233">
+    <state x="339" y="0" width="617" height="680" key="#Main" timestamp="1607772344710">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1607629144233" />
+    <state x="339" y="0" width="617" height="680" key="#Main/0.0.1280.680@0.0.1280.680" timestamp="1607772344710" />
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607772328093">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1607772328093" />
     <state x="446" y="47" key="#com.intellij.ide.util.MemberChooser" timestamp="1607163752736">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="446" y="47" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1607163752736" />
-    <state width="1237" height="167" key="GridCell.Tab.0.bottom" timestamp="1607699066288">
+    <state width="1237" height="167" key="GridCell.Tab.0.bottom" timestamp="1607772691694">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="167" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1607699066288" />
-    <state width="1237" height="167" key="GridCell.Tab.0.center" timestamp="1607699066287">
+    <state width="1237" height="167" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1607772691694" />
+    <state width="1237" height="167" key="GridCell.Tab.0.center" timestamp="1607772691693">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="167" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1607699066287" />
-    <state width="1237" height="167" key="GridCell.Tab.0.left" timestamp="1607699066287">
+    <state width="1237" height="167" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1607772691693" />
+    <state width="1237" height="167" key="GridCell.Tab.0.left" timestamp="1607772691693">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="167" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1607699066287" />
-    <state width="1237" height="167" key="GridCell.Tab.0.right" timestamp="1607699066287">
+    <state width="1237" height="167" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1607772691693" />
+    <state width="1237" height="167" key="GridCell.Tab.0.right" timestamp="1607772691694">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="167" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1607699066287" />
+    <state width="1237" height="167" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1607772691694" />
     <state width="1237" height="204" key="GridCell.Tab.1.bottom" timestamp="1607174155830">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
