@@ -13,6 +13,7 @@ import bgu.spl.mics.application.passiveObjects.Diary;
  */
 public class LandoMicroservice  extends MicroService {
     private long duration;
+
     public LandoMicroservice(long duration) {
         super("Lando");
         this.duration=duration;
@@ -20,6 +21,34 @@ public class LandoMicroservice  extends MicroService {
 
     @Override
     protected void initialize() {
+
+        //Subscribing to the BombDestroyerEvent and for the Termination broadcast.
+        subscribeBombDestoyingEvent();
+        subscribeTermination();
+       
+    }
+    /**
+     * Subscribing to the {@link TerminationBroadcast}.
+     * When receiving this broadcast-> calling the current {@link MicroService}
+     * termination method and informing the {@link Diary} of the termination.
+     */
+    private void subscribeTermination(){
+        //Termination event subscription
+        Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
+            //Informing the diary of the changes
+            Diary.getInstance().stampLandoTerminate();
+            terminate();
+        };
+        subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
+    }
+
+    /**
+     * Subscribing to the {@link BombDestroyerEvent}.
+     * When receiving this event-> calling the {@link Callback}
+     * associated with this event.
+     * Informing the {@link Diary} of the event completion.
+     */
+    private void subscribeBombDestoyingEvent(){
         Callback<BombDestroyerEvent> bombDestroyerEventCallback=(bombDestroyerEvent)->{
             try {
                 Thread.sleep(duration);
@@ -30,14 +59,5 @@ public class LandoMicroservice  extends MicroService {
             }
         };
         subscribeEvent(BombDestroyerEvent.class,bombDestroyerEventCallback);
-
-        //Termination event registration
-        Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
-            //Informing the diary of the changes
-            Diary.getInstance().stampLandoTerminate();
-            terminate();
-        };
-        subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
-       
     }
 }
