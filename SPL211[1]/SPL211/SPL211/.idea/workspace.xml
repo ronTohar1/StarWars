@@ -21,9 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ac648896-9c64-4e4c-80f7-c334e76a7470" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests.json" beforeDir="false" afterPath="$PROJECT_DIR$/Tests.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/input.json" beforeDir="false" afterPath="$PROJECT_DIR$/input.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/passiveObjects/Diary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/passiveObjects/Diary.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -195,10 +195,10 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
+      <item itemvalue="Application.InvokeTest" />
       <item itemvalue="JUnit.FutureTest" />
       <item itemvalue="JUnit.MessageBusImplTest" />
       <item itemvalue="JUnit.EwokTest" />
-      <item itemvalue="Application.InvokeTest" />
     </list>
     <recent_temporary>
       <list>
