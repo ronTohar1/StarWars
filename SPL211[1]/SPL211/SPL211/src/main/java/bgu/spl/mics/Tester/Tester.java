@@ -155,6 +155,8 @@ public class Tester {
                     System.out.println("Passed Test --> " + i);
                 } else {
                     System.out.println("Failed Test --> " + i);
+                    System.out.println(passedFirstTest+", "+passedSecondTest+", "+passedThirdTest);
+                    System.out.println(soloTerminate+" , "+C3POTerminate+", "+LandoTermiante+", "+R2D2Terminate);
                     failedTests++;
                 }
                 System.out.println("\r\n");
@@ -222,7 +224,12 @@ public class Tester {
             if (future==null)
                 System.out.println("no MicroServer is registered to the event");
             else{
-                String result=future.get();
+                String result= null;
+                try {
+                    result = future.get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 if (result.equals("M1"))
                     numberOfM1.getAndIncrement();
                 else if (result.equals("M2"))
