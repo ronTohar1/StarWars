@@ -26,7 +26,7 @@ public class Diary {
     private long R2D2Terminate;
     private long LandoTerminate;
 
-    // TODO: do we need to enforce that each method is called by the one that is allowed to call it
+
 
     /**
      * A private constructor that creates a Diary with no time values yet, and 0 attacks
@@ -49,7 +49,6 @@ public class Diary {
      */
     public void incrementTotalAttacks(){
         totalAttacks.getAndIncrement(); // incrementing by 1 atomically to make it threaded safe
-        // TODO: make sure we can use this and don't need to implement in ourselves
     }
 
     /**

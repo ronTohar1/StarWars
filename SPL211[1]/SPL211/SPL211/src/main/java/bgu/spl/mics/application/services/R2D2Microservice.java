@@ -6,8 +6,6 @@ import bgu.spl.mics.application.messages.DeactivationEvent;
 import bgu.spl.mics.application.messages.TerminationBroadcast;
 import bgu.spl.mics.application.passiveObjects.Diary;
 
-import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * R2D2Microservices is in charge of the handling {@link DeactivationEvent}.
@@ -60,10 +58,10 @@ public class R2D2Microservice extends MicroService {
                 Thread.sleep(sleepDuration);
                 //Informing the diary of the changes
                 Diary.getInstance().stampR2D2Deactivate();
-                complete(DeactivationEvent, true); // TODO: should it be like this?
+                complete(DeactivationEvent, true);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-                complete(DeactivationEvent, false); // TODO: should it be like this?
+                complete(DeactivationEvent, false);
             }
         };
         subscribeEvent(DeactivationEvent.class,deactivationEventCallback);

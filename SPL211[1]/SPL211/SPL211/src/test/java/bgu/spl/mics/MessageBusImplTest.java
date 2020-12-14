@@ -1,16 +1,10 @@
 package bgu.spl.mics;
 
 import bgu.spl.mics.application.messages.AttackEvent;
-import bgu.spl.mics.application.services.C3POMicroservice;
-import bgu.spl.mics.application.services.HanSoloMicroservice;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
-
-import java.time.Duration;
-
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 

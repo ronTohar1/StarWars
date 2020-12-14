@@ -16,8 +16,6 @@ import java.util.List;
  */
 public class Main {
 	public static void main(String[] args) {
-		// TODO: Make sure that we need exactly 2 arguments, and that more is not good
-		// TODO: Make sure that they won't mind magic numbers in the 0, 1, 2 here. Especially the 2
 		ensureArgsLength(args); // ensuring that received exactly 2 args
 		Input input = tryGetInputFromFile(args[0]);
 		runProgram(input); // the results are saved in the Diary singleton
@@ -67,7 +65,7 @@ public class Main {
 		Gson gson = new Gson();
 		Reader reader = new FileReader(filePath);
 		Input input = gson.fromJson(reader, Input.class);
-		reader.close(); // TODO: should we close it?
+		reader.close();
 		return input;
 	}
 

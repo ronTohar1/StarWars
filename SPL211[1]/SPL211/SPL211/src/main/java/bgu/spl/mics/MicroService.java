@@ -1,10 +1,8 @@
 package bgu.spl.mics;
 
-import bgu.spl.mics.application.messages.AttackEvent;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
+
 
 /**
  * The MicroService is an abstract class that any micro-service in the system
@@ -170,9 +168,7 @@ public abstract class MicroService implements Runnable {
                 message = bus.awaitMessage(this);
                 messageCallbackMap.get(message.getClass()).call(message);
             } catch (InterruptedException e) {
-                e.printStackTrace();
             }
-
         }
         bus.unregister(this);
     }

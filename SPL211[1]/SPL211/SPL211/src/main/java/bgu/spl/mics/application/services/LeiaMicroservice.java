@@ -19,13 +19,13 @@ import bgu.spl.mics.application.passiveObjects.Diary;
  * You MAY change constructor signatures and even add new public constructors.
  */
 public class LeiaMicroservice extends MicroService {
-	private Attack[] attacks;
-	private Future<Boolean>[] attackFutures;
+    private Attack[] attacks;
+    private Future<Boolean>[] attackFutures;
 
     public LeiaMicroservice(Attack[] attacks) {
         super("Leia");
-		this.attacks = attacks;
-		attackFutures= new Future[attacks.length];
+        this.attacks = attacks;
+        attackFutures = new Future[attacks.length];
     }
 
     @Override
@@ -57,14 +57,14 @@ public class LeiaMicroservice extends MicroService {
      * When receiving this broadcast-> calling the current {@link MicroService}
      * termination method and informing the {@link Diary} of the termination.
      */
-    private void subscribeTermination(){
+    private void subscribeTermination() {
         //Subscribing to Termination Broadcast.
-        Callback<TerminationBroadcast> terminationCallback=(terminationBroadcast)->{
+        Callback<TerminationBroadcast> terminationCallback = (terminationBroadcast) -> {
             //Informing the diary of the termination.
             Diary.getInstance().stampLeiaTerminate();
             terminate();
         };
-        subscribeBroadcast(TerminationBroadcast.class,terminationCallback);
+        subscribeBroadcast(TerminationBroadcast.class, terminationCallback);
     }
 
     /**
@@ -78,9 +78,7 @@ public class LeiaMicroservice extends MicroService {
             attackFutures[attackIndex] = attackFuture;
         }
         for (int i = 0; i < attackFutures.length; i++) {
-            Boolean futureIsResolved = false;
-            while (attackFutures[i] == null || !attackFutures[i].get()){
-                // TODO: 08/12/2020  check if need to send again.
+            while (!checkIfEventCompleted(attackFutures[i])) {
                 //Re-sending an attack
                 attackFutures[i] = sendEvent(new AttackEvent(attacks[i]));
             }
@@ -91,7 +89,7 @@ public class LeiaMicroservice extends MicroService {
      * Sending a termination broadcast to all {@link MicroService}
      * who are subscribed.
      */
-    private void sendTerminationSignal(){
+    private void sendTerminationSignal() {
         //Terminating every thread.
         sendBroadcast(new TerminationBroadcast());
     }
@@ -103,12 +101,12 @@ public class LeiaMicroservice extends MicroService {
      * of the event to return True.
      * (If the future returns false, we are sending the event again untill it is executed successfully)s
      */
-    private void destroyShieldEvent(){
+    private void destroyShieldEvent() {
         //Deactivating the shield.
-        Future<Boolean> deactivationFuture= this.sendEvent(new DeactivationEvent());
+        Future<Boolean> deactivationFuture = this.sendEvent(new DeactivationEvent());
 
         // Re-sending the event until it is completed successfully:
-        while(deactivationFuture == null || !deactivationFuture.get()) {
+        while (!checkIfEventCompleted(deactivationFuture)) {
             deactivationFuture = sendEvent(new DeactivationEvent());
         }
     }
@@ -125,8 +123,23 @@ public class LeiaMicroservice extends MicroService {
         //Bombing the star.
         Future<Boolean> bombDestructionFuture = sendEvent(new BombDestroyerEvent());
         //Re-sending the event until it is completed successfully:
-        while (bombDestructionFuture == null || !bombDestructionFuture.get()) {
+        while (!checkIfEventCompleted(bombDestructionFuture)) {
             bombDestructionFuture = sendEvent(new BombDestroyerEvent());
+        }
+    }
+
+    /**
+     * The function checks if an event completed by its future.
+     * This method is blocking. (waits for the future to be resolved if not resolved)
+     * @param futureOfEvent The future of the event we want to check if completed.
+     * @return true -> if the event completed successfully, or false otherwise.
+     */
+    private boolean checkIfEventCompleted(Future<Boolean> futureOfEvent) {
+        try {
+            return futureOfEvent != null && futureOfEvent.get();
+        } catch (InterruptedException e) {
+            //If got interrupted, then the event was not completed successfully.
+            return false;
         }
     }
 }
