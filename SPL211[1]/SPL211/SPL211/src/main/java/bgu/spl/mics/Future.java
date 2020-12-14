@@ -29,35 +29,26 @@ public class Future<T> {
      * not been completed.
      * <p>
      * @return return the result of type T if it is available, if not wait until it is available.
-     * 	       
+     * @throws  InterruptedException
      */
-	public T get() {
-		synchronized (this) {
-
-		while (!isDone) {
-				try {
-					wait();
-				} catch (InterruptedException e) {
-					// TODO: 06/12/2020 what are we doing here?
-				}
+	public synchronized T get() throws InterruptedException {
+			while (!isDone) {
+				wait();
 			}
 
-		}
-		return result;
+			return result;
 	}
 
 	/**
 	 * Resolves the result of this Future object.
 	 */
-	public void resolve (T result) {
-		synchronized (this) {
+	public synchronized void resolve (T result) {
 			if (isDone)
-				throw new IllegalStateException("Can't resolve because already resolved");// TODO: 06/12/2020 is that okay? throwing.
+				throw new IllegalStateException("Can't resolve because already resolved");
 			this.result = result;
 			isDone = true;
 
 			notifyAll();
-		}
 	}
 	
 	/**

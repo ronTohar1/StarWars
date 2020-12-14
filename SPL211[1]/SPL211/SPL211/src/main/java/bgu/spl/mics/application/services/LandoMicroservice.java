@@ -52,10 +52,10 @@ public class LandoMicroservice  extends MicroService {
         Callback<BombDestroyerEvent> bombDestroyerEventCallback=(bombDestroyerEvent)->{
             try {
                 Thread.sleep(duration);
-                complete(bombDestroyerEvent, true); // TODO: should it be like this?
+                complete(bombDestroyerEvent, true);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-                complete(bombDestroyerEvent, false); // TODO: should it be like this?
+                complete(bombDestroyerEvent, false);
             }
         };
         subscribeEvent(BombDestroyerEvent.class,bombDestroyerEventCallback);

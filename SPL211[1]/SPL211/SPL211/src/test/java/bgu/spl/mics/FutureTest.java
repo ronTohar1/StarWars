@@ -2,10 +2,8 @@ package bgu.spl.mics;
 
 import org.junit.jupiter.api.*;
 
-import java.sql.Time;
-import java.time.Duration;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,7 +26,8 @@ public class FutureTest {
      * checking that the future isDone() as well. (resolved, finished)
      */
     @Test
-    public void testGet() {
+    public void testGet() throws InterruptedException {
+        //Added an exception to the get() function, so this test had changed as well, and it now throws an exception.
         assertFalse(future.isDone());
         String result = "";
         future.resolve(result);
@@ -41,10 +40,11 @@ public class FutureTest {
      * Testing Resolve() function .
      * checking that the result object which was sent to the resolve
      * method is the current result of the future object.
-     * Checking the object isDont().
+     * Checking the object isDone().
      */
     @Test
-    public void testResolve(){
+    public void testResolve() throws InterruptedException {
+        //Added an exception to the get() function, so this test had changed as well, and it now throws an exception.
         String result = "someResult";
         future.resolve(result);
         assertTrue(future.isDone());
@@ -54,7 +54,7 @@ public class FutureTest {
     /**
      * Testing isDone() function.
      * Checking that before resolving the future object ,
-     * isDone() will return false, and after resloving
+     * isDone() will return false, and after resolving
      * the future object , isDone() will return true.
      */
     @Test

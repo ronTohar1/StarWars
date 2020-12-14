@@ -43,7 +43,7 @@ public class Ewoks {
      * given number of ewoks
      * @param numberOfEwoks the number of Ewoks to initialize the class with
      */
-    public static void initialize(int numberOfEwoks){ // TODO: is it okay to use this
+    public static void initialize(int numberOfEwoks){
         Ewoks instance = getInstance();
         instance.ewoks = new Ewok[numberOfEwoks];
         // initializing each Ewok:
